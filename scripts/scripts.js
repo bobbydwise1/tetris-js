@@ -1,9 +1,21 @@
 var blankRow = [0,0,0,0,0,0,0,0,0,0];
+var zeroMatrix3 = [
+[0,0,0],
+[0,0,0],
+[0,0,0]
+];
+var zeroMatrix4 = [
+[0,0,0,0],
+[0,0,0,0],
+[0,0,0,0],
+[0,0,0,0]
+];
+
 
 var system = [
-[0,0,0,0,0,0,0,0,0,0],  //note system[0] === y-axis[0]
-[0,0,0,0,0,0,0,0,0,0],
-[0,0,0,0,0,0,0,0,0,0],
+[0,0,-1,-1,0,0,0,0,0,0],  //note system[0] === y-axis[0]
+[0,0,-1,0,0,0,0,0,0,0],
+[0,0,-1,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0],
@@ -21,7 +33,7 @@ var system = [
 [0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0],  //note system[19] === y-axis[19] == bottom
-[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]   //This is the floor
+[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]   //This is the floor.  - is a "dead" piece.  Might delete this row
 ];
 
 function resetSystem() {
@@ -32,8 +44,6 @@ function resetSystem() {
   }
   console.log("Reset system");
 }
-
-var alive = [[]];
 
 var ooh = [
 [0,0,0,0],
@@ -85,6 +95,12 @@ var zee =
 [0,1,1]
 ];
 
+//hit detection arrays
+var alive; //equal to piece_matrix
+var alivePos;  //equal to [[piece_matrix],[ycoord of piece_matrix center,xcoord of piece_matrix center]}
+var hitDetectLookAhead3 = zeroMatrix3;
+var hitDetectLookAhead4 = zeroMatrix4;
+
 // function add(a,b) {
 //   a + b;
 // }
@@ -106,11 +122,12 @@ function clearLines() {
 function insertNewpiece(piece_matrix) {
   for (var y = 1; y < piece_matrix[0].length; y++) {
     for (var x = 0; x < piece_matrix[0].length; x++) {
-      system[-1+y][3+x] = 2*piece_matrix[y][x];
-      alive.push(piece_matrix[y][x]);
+      system[y][3+x] = piece_matrix[y][x];
     }
   }
-  return alive;
+  alive = piece_matrix;
+  alivePos = [1,4];
+  return alivePos;  //system position of piece_matrix[1][1] alaways starts at system[0][4];
 }
 
 function rotateCW(piece_matrix) {
@@ -174,12 +191,39 @@ function rotateCCW(piece_matrix) {
     return tempArray;
   }
 
-  function trimWastedSpace(piece_matrix) {
-
+  //Look at the future to see if you hit anything
+  function lookAheadScanLeft(alive,alivePos) {
+    if (alive[0].length === 4) {
+      var hitDetectLookAhead = zeroMatrix4;
+    } else {
+      var hitDetectLookAhead = zeroMatrix3;
+    }
+    for (var y = 0; y < alive[0].length; y++) {
+      for (var x = 0; x < alive[0].length; x++) {
+        //if your alive[y][x] spot is === 1
+        if (alive[y][x] === 1) {
+          //check if the left box is a dead piece or null
+          if ((system[alivePos[0]+y-1][alivePos[1]+x-2] <= -1) || (system[alivePos[0]+y-1][alivePos[1]+x-2] === null)) {
+            //if it is dead, this is a collision.  make the future spot === negative number
+            hitDetectLookAhead[y][x] = -1*alive[y][x];
+          } else {
+            //otherwise, it's an empty spot, make it equal the alive piece;
+            hitDetectLookAhead[y][x] = alive[y][x];
+          }  //terminates inner if
+        } else {
+          //if your alive[y][x] is empty, check the system spot to the left of you if it is a dead piece or null.  Since your alive[y][x] is empty, you can safely take any system value of the spot to the left of you
+            if ((system[alivePos[0]+y-1][alivePos[1]+x-2] <= -1) || (system[alivePos[0]+y-1][alivePos[1]+x-2] === null)) {
+            hitDetectLookAhead[y][x] = system[alivePos[0]+y-1][alivePos[1]+x-2];
+          }
+        }
+      }
+    }
+    return hitDetectLookAhead;
   }
 
   function moveLeft(pieceAlive) {
     //play the "move" sound here;
+    //in order to move right, we note the intersection of the left most indices of the alive piece
 
   }
   function moveRight(pieceAlive) {
@@ -196,8 +240,8 @@ function rotateCCW(piece_matrix) {
   function updateGrid() {
     for (let y = 0; y < 20; y++) {
       for (let x = 0; x < 10; x++) {
-        if (system[y][x] === 2) {
-          $('#gee'+ y + "-" + x).addClass("grid-red");
+        if (system[y][x] <= -1) {
+          $('#gee'+ y + "-" + x).addClass("grid-purple");
         } else if (system[y][x] === 1) {
           $('#gee'+ y + "-" + x).addClass("grid-red");
         } else {
@@ -276,7 +320,7 @@ function rotateCCW(piece_matrix) {
   });
 
   $(document).ready(function(){
-
+    updateGrid();
   // setInterval(function(){
   //   $(".grid-item").addClass("grid-red");
   // }, 3000);
