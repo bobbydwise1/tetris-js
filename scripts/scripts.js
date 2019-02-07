@@ -13,9 +13,9 @@ var zeroMatrix4 = [
 
 
 var system = [
-[0,0,-1,-1,0,0,0,0,0,0],  //note system[0] === y-axis[0]
-[0,0,-1,0,0,0,0,0,0,0],
-[0,0,-1,0,0,0,0,0,0,0],
+[0,0,-1,-1,-1,0,0,-1,0,0],  //note system[0] === y-axis[0]
+[0,0,-1,0,0,0,-1,-1,0,0],
+[0,0,-1,0,0,0,-1,-1,0,0],
 [0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0],
 [0,0,0,0,0,0,0,0,0,0],
@@ -122,7 +122,9 @@ function clearLines() {
 function insertNewpiece(piece_matrix) {
   for (var y = 1; y < piece_matrix[0].length; y++) {
     for (var x = 0; x < piece_matrix[0].length; x++) {
-      system[y][3+x] = piece_matrix[y][x];
+      if (piece_matrix[y][x] != 0) {
+        system[y][3+x] = piece_matrix[y][x];
+      }
     }
   }
   alive = piece_matrix;
@@ -217,6 +219,41 @@ function rotateCCW(piece_matrix) {
           }
         }
       }
+    }
+    return hitDetectLookAhead;
+  }
+//everything is flipped horizontally, because you are checking the right side
+  function lookAheadScanRight(alive,alivePos) {
+    if (alive[0].length === 4) {
+      var hitDetectLookAhead = zeroMatrix4;
+      var rightoffset = 0;
+    } else {
+      var hitDetectLookAhead = zeroMatrix3;
+      var rightoffset = 0;
+    }
+    for (var y = 0; y < alive[0].length; y++) {
+      for (var x = alive[0].length-1; x >= 0; x--) {
+        console.log("loop no: ", y,"-",x,": system scan[y][x]: ",alivePos[0]+y-1,"-",alivePos[1]+x+rightoffset," value: ",system[alivePos[0]+y-1][alivePos[1]+x+rightoffset])
+        //if your alive[y][x] spot is === 1
+        if (alive[y][x] === 1) {
+          //check if the right box is a dead piece or null
+          if ((system[alivePos[0]+y-1][alivePos[1]+x+rightoffset] <= -1) || (system[alivePos[0]+y-1][alivePos[1]+x+rightoffset] === null)) {
+            //if it is dead, this is a collision.  make the future spot === negative number
+            hitDetectLookAhead[y][x] = -1*alive[y][x];
+          } else {
+            //otherwise, it's an empty spot, make it equal the alive piece;
+            hitDetectLookAhead[y][x] = alive[y][x];
+          }  //terminates nexted if block.  next section of code continues the outer if.
+        } else {
+          //if your alive[y][x] is empty, check the system spot to the right of you if it is a dead piece or null.  Since your alive[y][x] is empty, you can safely take any system value of the spot to the left of you
+            if ((system[alivePos[0]+y-1][alivePos[1]+x+rightoffset] <= -1) || (system[alivePos[0]+y-1][alivePos[1]+x+rightoffset] === null)) {
+            hitDetectLookAhead[y][x] = system[alivePos[0]+y-1][alivePos[1]+x+rightoffset];
+            console.log(y,"-",x,": ",system[alivePos[0]+y-1][alivePos[1]+x+rightoffset])
+          }
+          // debugger;
+        }
+      }
+      console.log("lookahead: ",hitDetectLookAhead)
     }
     return hitDetectLookAhead;
   }
