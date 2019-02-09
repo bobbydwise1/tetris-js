@@ -4,7 +4,7 @@ function Game(points,level) {
   this.points = points;
   this.level = level;
   this.alive = 0; //equal to piece_matrix
-  this.alivePos = [2,4];
+  this.alivePos = [0,0];
   this.lines = 0;
   this.blankRow = [0,0,0,0,0,0,0,0,0,0];
   this.zeroMatrix3 = [
@@ -21,7 +21,8 @@ function Game(points,level) {
   this.hitDetectLookAhead3 = this.zeroMatrix3;
   this.hitDetectLookAhead4 = this.zeroMatrix4;
   this.system = [
-    [0,0,0,0,0,0,0,0,0,0],  //note this.system[0] === y-axis[0]
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],  //system[0] hidden top
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
@@ -30,17 +31,17 @@ function Game(points,level) {
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],  //note this.system[9] === y-axis[9] === MIDDLE!
+    [0,0,0,0,0,0,0,0,0,0],  //system[10] === MIDDLE!
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0]  //note this.system[19] === y-axis[19] == bottom
+    [6,0,0,0,0,0,0,0,0,0],
+    [6,0,0,0,0,0,0,0,0,0],
+    [6,6,0,0,0,0,0,0,0,0],
+    [5,5,0,0,0,0,0,0,0,0],
+    [5,0,0,0,0,0,0,0,0,0],
+    [5,0,0,0,0,0,0,0,0,0],
+    [6,5,4,3,3,2,2,1,0,0],
+    [1,2,3,4,5,6,7,8,0,0]  //system[20] === y-axis[20] == bottom
     ];
 
   this.ooh = [
@@ -94,8 +95,8 @@ function Game(points,level) {
   ];
 
 Game.prototype.resetSystem = function() {
-  for (let y = 0; y < 20; y++) {
-    for (let x = 0; x < 10; x++) {
+  for (let y = 0; y < this.system.length; y++) {
+    for (let x = 0; x < this.system[0].length; x++) {
       this.system[y][x] = 0;
     }
   }
@@ -112,6 +113,8 @@ Game.prototype.clearLines = function() {
 
 //Note the piece insertion coordinate is alaways y=1, x=1;
 Game.prototype.insertNewpiece = function(piece_matrix) {
+  this.alivePos = [1,4];
+  this.alive = piece_matrix;
   for (var y = 1; y < piece_matrix[0].length; y++) {
     for (var x = 0; x < piece_matrix[0].length; x++) {
       if (piece_matrix[y][x] != 0) {
@@ -119,16 +122,16 @@ Game.prototype.insertNewpiece = function(piece_matrix) {
       }
     }
   }
-  this.alive = piece_matrix;
-  this.alivePos = [1,4];
   return this.alivePos;  //this.system position of piece_matrix[1][1] alaways starts at this.system[0][4];
 }
 
 Game.prototype.rotateCW = function() {
   if (piece_matrix[0].length === 4) {
     var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+    //tempArray[0][0] = this.alive[3][0];  //always zero
     tempArray[0][1] = this.alive[2][0];
     tempArray[0][2] = this.alive[1][0];
+    //tempArray[0][3] = this.alive[0][0];  //always zero
     tempArray[1][0] = this.alive[3][1];
     tempArray[1][1] = this.alive[2][1];
     tempArray[1][2] = this.alive[1][1];
@@ -137,8 +140,10 @@ Game.prototype.rotateCW = function() {
     tempArray[2][1] = this.alive[2][2];
     tempArray[2][2] = this.alive[1][2];
     tempArray[2][3] = this.alive[0][2];
+    //tempArray[3][0] = this.alive[3][3];  //always zero
     tempArray[3][1] = this.alive[2][3];
     tempArray[3][2] = this.alive[1][3];
+    //tempArray[3][3] = this.alive[0][3];  //always zero
   } else {
     var tempArray = [[0,0,0],[0,1,0],[0,0,0]];
     tempArray[0][0] = this.alive[2][0];
@@ -159,10 +164,10 @@ Game.prototype.rotateCW = function() {
 Game.prototype.rotateCCW = function() {
   if (piece_matrix[0].length === 4) {
     var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
-    //ignore corner [0][0]
+    //tempArray[0][0] = this.alive[0][3];  //always zero
     tempArray[0][1] = this.alive[1][3];
     tempArray[0][2] = this.alive[2][3];
-    //ignore corner [0][3]
+    //tempArray[0][3] = this.alive[3][3];  //always zero
     tempArray[1][0] = this.alive[0][2];
     tempArray[1][1] = this.alive[1][2];
     tempArray[1][2] = this.alive[2][2];
@@ -171,10 +176,10 @@ Game.prototype.rotateCCW = function() {
     tempArray[2][1] = this.alive[1][1];
     tempArray[2][2] = this.alive[2][1];
     tempArray[2][3] = this.alive[3][1];
-    //ignore corner [3][0]
+    //tempArray[3][0] = this.alive[0][0];  //always zero
     tempArray[3][1] = this.alive[1][0];
     tempArray[3][2] = this.alive[2][0];
-    //ignore corner [3][3]
+    //tempArray[3][3] = this.alive[3][0];  //always zero
   } else {
     var tempArray = [[0,0,0],[0,1,0],[0,0,0]];
     tempArray[0][0] = this.alive[0][2];
@@ -256,31 +261,77 @@ Game.prototype.rotateCCW = function() {
     return this.hitDetectLookAhead;
   }
 
-  Game.prototype.moveLeft = function(pieceAlive) {
-    //play the "move" sound here;
-    //in order to move right, we note the intersection of the left most indices of the this.alive piece
+  Game.prototype.moveLeft = function() {
+    this.alivePos[1]--;
+    for (var y = 0; y < this.alive[0].length; y++) {
+      for (var x = 0; x < this.alive[0].length; x++) {
+        if (this.system[y][x+this.alivePos[1]] === this.alive[y][x]) {
+          this.system[y][x+this.alivePos[1]] = 0;
+          this.system[y][x+this.alivePos[1]-1] = this.alive[y][x];
+        }
+      }
+    }
+    return this.alivePos;
+  }
 
+  Game.prototype.moveRight = function() {
+    this.alivePos[1]++;
+    for (var y = 0; y < this.alive[0].length; y++) {
+      for (var x = 0; x < this.alive[0].length; x++) {
+        this.system[y][x] = this.alive[y][x];
+        // if (this.system[y][x] === this.alive[y][x]) {
+        //   // this.system[y][x+this.alivePos[1]] = 0;
+        //   // this.system[y][x+this.alivePos[1]-1] = this.alive[y][x];
+        // }
+      }
+    }
+    console.log("after alivePos: ",this.alivePos);
+    console.table(this.system);
+    return this.alivePos;
   }
-  Game.prototype.moveRight = function(pieceAlive) {
-    //play the "move" sound here;
-  }
+
   Game.prototype.moveDown = function(pieceAlive) {
     //play the "move" sound here;
   }
 
   Game.prototype.updateGrid = function() {
-    for (let y = 0; y < 20; y++) {
-      for (let x = 0; x < 10; x++) {
-        if (this.system[y][x] <= -1) {
-          $('#gee'+ y + "-" + x).addClass("grid-purple");
-        } else if (this.system[y][x] === 1) {
-          $('#gee'+ y + "-" + x).addClass("grid-red");
-        } else {
-          $('#gee'+ y + "-" + x).removeClass("grid-red");
+    for (let y = 0; y < this.system.length; y++) {
+      for (let x = 0; x < this.system[0].length; x++) {
+        switch (this.system[y][x]) {
+          case 0:
+            $('#gee'+ y + "-" + x).removeClass().addClass("grid-item");
+          break;
+          case 1:
+            $('#gee'+ y + "-" + x).addClass("grid-color-brown");
+          break;
+          case 2:
+            $('#gee'+ y + "-" + x).addClass("grid-color-red");
+          break;
+          case 3:
+            $('#gee'+ y + "-" + x).addClass("grid-color-orange");
+          break;
+          case 4:
+            $('#gee'+ y + "-" + x).addClass("grid-color-yellow");
+          break;
+          case 5:
+            $('#gee'+ y + "-" + x).addClass("grid-color-green");
+          break;
+          case 6:
+            $('#gee'+ y + "-" + x).addClass("grid-color-blue");
+          break;
+          case 7:
+            $('#gee'+ y + "-" + x).addClass("grid-color-indigo");
+          break;
+          case 8:
+            $('#gee'+ y + "-" + x).addClass("grid-color-purple");
+          break;
+          default:
+            $('#gee'+ y + "-" + x).addClass("grid-color-dark");
+          }
         }
       }
     }
-  }
+
 }
 
 //What follows is keyboard capturing logic
@@ -288,12 +339,14 @@ $(document).keydown(function(e) {
   switch(e.which) {
     case 37: // left
     console.log("Left arrow");
+    game.moveLeft();
     break;
     case 38: // up
     console.log("up arrow");
     break;
     case 39: // right
     console.log("right arrow");
+    game.moveRight();
     break;
     case 40: // down
     console.log("down arrow");
@@ -352,6 +405,6 @@ $(document).keydown(function(e) {
 // $(document).ready(function(){
 //   var timerInterval = 1000;
 //   setInterval(function(){
-//     updateGrid();
+//     game.updateGrid();
 //   }, timerInterval);
 // });

@@ -1,5 +1,4 @@
 body {background-color: lightyellow;}
-.grid-dark {background-color: blue;}
 .item1 { grid-area: header; }
 .item2 { grid-area: menu; }
 .item3 { grid-area: main; }
@@ -10,6 +9,7 @@ body {background-color: lightyellow;}
   display: grid;
   grid-template-areas:
     'header header header header header header header header header header'
+    'menu main main main main main main main main right'
     'menu main main main main main main main main right'
     'menu main main main main main main main main right'
     'menu main main main main main main main main right'
@@ -42,11 +42,13 @@ body {background-color: lightyellow;}
   font-size: 10px;
 }
 
-div.grid-dark {background-color: black;}
-div.grid-red {background-color: red;}
-div.grid-orange {background-color: orange;}
-div.grid-yelllow {background-color: yellow;}
-div.grid-green {background-color: green;}
-div.grid-blue {background-color: blue;}
-div.grid-indigo {background-color: indigo;}
-div.grid-purple {background-color: purple;}
+div.grid-color-dark {background-color: black;}
+div.grid-color-grey {background-color: lightgrey;}
+div.grid-color-brown {background-color: brown;}
+div.grid-color-red {background-color: red;}
+div.grid-color-orange {background-color: orange;}
+div.grid-color-yellow {background-color: yellow;}
+div.grid-color-green {background-color: green;}
+div.grid-color-blue {background-color: blue;}
+div.grid-color-indigo {background-color: indigo;}
+div.grid-color-purple {background-color: purple;}
