@@ -21,12 +21,12 @@ function Game(points,level) {
   this.hitDetectLookAhead3 = this.zeroMatrix3;
   this.hitDetectLookAhead4 = this.zeroMatrix4;
   this.system = [
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],  //system[0] hidden top
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
+    [2,0,0,0,0,0,0,0,0,2],
+    [3,0,0,0,0,0,0,0,0,3],  //system[0] hidden top
+    [4,0,0,0,0,0,0,0,0,4],
+    [5,0,0,0,0,0,0,0,0,5],
+    [6,0,0,0,0,0,0,0,0,6],
+    [7,0,0,0,0,0,0,0,0,7],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
@@ -278,11 +278,12 @@ Game.prototype.rotateCCW = function() {
     this.alivePos[1]++;
     for (var y = 0; y < this.alive[0].length; y++) {
       for (var x = 0; x < this.alive[0].length; x++) {
-        this.system[y][x] = this.alive[y][x];
-        // if (this.system[y][x] === this.alive[y][x]) {
-        //   // this.system[y][x+this.alivePos[1]] = 0;
-        //   // this.system[y][x+this.alivePos[1]-1] = this.alive[y][x];
-        // }
+        if (this.system[y][x+this.alivePos[1]-2] === this.alive[y][x]) {
+          debugger;
+
+          // this.system[y][x+this.alivePos[1]] = 0;
+          // this.system[y][x+this.alivePos[1]] = this.alive[y][x];
+        }
       }
     }
     console.log("after alivePos: ",this.alivePos);
