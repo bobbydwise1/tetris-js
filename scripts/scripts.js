@@ -5,6 +5,7 @@ function Game(points,level) {
   this.level = level;
   this.alive = 0; //equal to piece_matrix
   this.alivePos = [0,0];
+  this.next = 0;
   this.lines = 0;
   this.blankRow = [0,0,0,0,0,0,0,0,0,0];
   this.zeroMatrix3 = [
@@ -46,15 +47,15 @@ function Game(points,level) {
 
   this.ooh = [
   [0,0,0,0],
-  [0,1,1,0],
-  [0,1,1,0],
+  [0,2,2,0],
+  [0,2,2,0],
   [0,0,0,0]
   ];  //Note these are piece_matrices
 
   this.eye =
   [
   [0,0,0,0],
-  [1,1,1,1],
+  [3,3,3,3],
   [0,0,0,0],
   [0,0,0,0]
   ];
@@ -62,42 +63,42 @@ function Game(points,level) {
   this.eel =
   [
   [0,0,0],
-  [1,1,1],
-  [1,0,0]
+  [4,4,4],
+  [4,0,0]
   ];
 
   this.jay =
   [
   [0,0,0],
-  [1,1,1],
-  [0,0,1]
+  [5,5,5],
+  [0,0,5]
   ];
 
   this.tee =
   [
   [0,0,0],
-  [1,1,1],
-  [0,1,0]
+  [6,6,6],
+  [0,6,0]
   ];
 
   this.ess =
   [
   [0,0,0],
-  [0,1,1],
-  [1,1,0]
+  [0,7,7],
+  [7,7,0]
   ];
 
   this.zee =
   [
   [0,0,0],
-  [1,1,0],
-  [0,1,1]
+  [8,8,0],
+  [0,8,8]
   ];
 
   this.one =
   [
   [0,0,0],
-  [0,1,0],
+  [0,2,0],
   [0,0,0]
   ];
 
@@ -113,6 +114,7 @@ Game.prototype.resetSystem = function() {
   this.points = 0;
   this.level = 0;
   this.lines = 0;
+  this.next = 0;
   }
 
 Game.prototype.makePieceDead = function() {
@@ -131,10 +133,34 @@ Game.prototype.clearLines = function() {
   this.updateGrid();
 }
 
-//Note the piece insertion coordinate is alaways y=1, x=1;
-//What is the logic attempting?
-//First it determines what is the alive matrix.
-//Second, it needs to "map" the system matrix [y][x] onto the alive matrix
+Game.prototype.pickRandompiece = function () {
+  var temp = 0;
+  var pick = Math.floor((Math.random()*7)+1);
+   switch (pick) {
+     case 1:
+       temp = this.ooh;
+     break;
+     case 2:
+       temp = this.eye;
+     break;
+     case 3:
+       temp = this.eel;
+     break;
+     case 4:
+       temp = this.jay;
+     break;
+     case 5:
+       temp = this.tee;
+     break;
+     case 6:
+       temp = this.ess;
+     break;
+     default:
+       temp = this.zee;
+   }
+   return temp;
+}
+
 Game.prototype.insertNewpiece = function(piece_matrix) {
   this.alivePos = [1,4];
   this.alive = piece_matrix;
@@ -218,35 +244,35 @@ Game.prototype.rotateCCW = function() {
     return this.alive;
   }
 
-  //Look at the future to see if you hit anything
-  Game.prototype.lookAheadScanLeft = function() {
-    if (this.alive[0].length === 4) {
-      this.hitDetectLookAhead = this.zeroMatrix4;
-    } else {
-      this.hitDetectLookAhead = this.zeroMatrix3;
-    }
-    for (var y = 0; y < this.alive[0].length; y++) {
-      for (var x = 0; x < this.alive[0].length; x++) {
-        //if your this.alive[y][x] spot is === 1
-        if (this.alive[y][x] === 1) {
-          //check if the left box is a dead piece or null
-          if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] === null)) {
-            //if it is dead, this is a collision.  make the future spot === negative number
-            this.hitDetectLookAhead[y][x] = -1*this.alive[y][x];
-          } else {
-            //otherwise, it's an empty spot, make it equal the this.alive piece;
-            this.hitDetectLookAhead[y][x] = this.alive[y][x];
-          }  //terminates inner if
+//Look at the future to see if you hit anything
+Game.prototype.lookAheadScanLeft = function() {
+  if (this.alive[0].length === 4) {
+    this.hitDetectLookAhead = this.zeroMatrix4;
+  } else {
+    this.hitDetectLookAhead = this.zeroMatrix3;
+  }
+  for (var y = 0; y < this.alive[0].length; y++) {
+    for (var x = 0; x < this.alive[0].length; x++) {
+      //if your this.alive[y][x] spot is === 1
+      if (this.alive[y][x] >= 1) {
+        //check if the left box is a dead piece or null
+        if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] === null)) {
+          //if it is dead, this is a collision.  make the future spot === negative number
+              this.hitDetectLookAhead[y][x] = -1*this.alive[y][x];
         } else {
-          //if your this.alive[y][x] is empty, check the this.system spot to the left of you if it is a dead piece or null.  Since your this.alive[y][x] is empty, you can safely take any this.system value of the spot to the left of you
-            if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] === null)) {
-            this.hitDetectLookAhead[y][x] = this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2];
-          }
+          //otherwise, it's an empty spot, make it equal the this.alive piece;
+          this.hitDetectLookAhead[y][x] = this.alive[y][x];
+        }  //terminates inner if
+      } else {
+        //if your this.alive[y][x] is empty, check the this.system spot to the left of you if it is a dead piece or null.  Since your this.alive[y][x] is empty, you can safely take any this.system value of the spot to the left of you
+          if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] === null)) {
+          this.hitDetectLookAhead[y][x] = this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2];
         }
       }
     }
-    return this.hitDetectLookAhead;
   }
+  return this.hitDetectLookAhead;
+}
 //everything is flipped horizontally, because you are checking the right side
   Game.prototype.lookAheadScanRight = function() {
     if (this.alive[0].length === 4) {
@@ -263,22 +289,21 @@ Game.prototype.rotateCCW = function() {
         if (this.alive[y][x] === 1) {
           //check if the right box is a dead piece or null
           if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] === null)) {
-            //if it is dead, this is a collision.  make the future spot === negative number
-            this.hitDetectLookAhead[y][x] = -1*this.alive[y][x];
+                this.hitDetectLookAhead[y][x] = -1*this.alive[y][x];
           } else {
             //otherwise, it's an empty spot, make it equal the this.alive piece;
             this.hitDetectLookAhead[y][x] = this.alive[y][x];
           }  //terminates nexted if block.  next section of code continues the outer if.
         } else {
           //if your this.alive[y][x] is empty, check the this.system spot to the right of you if it is a dead piece or null.  Since your this.alive[y][x] is empty, you can safely take any this.system value of the spot to the left of you
-            if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] === null)) {
+          if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] === null)) {
             this.hitDetectLookAhead[y][x] = this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset];
             // console.log(y,"-",x,": ",this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset])
           }
           // debugger;
         }
       }
-      console.log("lookahead: ",this.hitDetectLookAhead)
+      // console.log("lookahead: ",this.hitDetectLookAhead)
     }
     return this.hitDetectLookAhead;
   }
@@ -416,6 +441,10 @@ $(document).keydown(function(e) {
     case 75: //z
     console.log("k key");
     game.insertNewpiece(game.one);
+    break;
+    case 82: //r
+    console.log("r key");
+    game.insertNewpiece(game.pickRandompiece());
     break;
     //G should be used to force "gravity, but gravity is just a down key"
     case 71: //g
