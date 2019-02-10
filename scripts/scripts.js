@@ -7,7 +7,7 @@ function Game(points,level) {
   this.alivePos = [0,0];
   this.next = 0;
   this.lines = 0;
-  this.blankRow = [0,0,0,0,0,0,0,0,0,0];
+  this.blankRow = [-1,0,0,0,0,0,0,0,0,0,0,-1];
   this.zeroMatrix3 = [
     [0,0,0],
     [0,0,0],
@@ -22,28 +22,30 @@ function Game(points,level) {
   this.hitDetectLookAhead3 = this.zeroMatrix3;
   this.hitDetectLookAhead4 = this.zeroMatrix4;
   this.system = [
-    [-2,0,0,0,0,0,0,0,0,-2],
-    [-3,0,0,0,0,0,0,0,0,-3],  //system[0] hidden top
-    [-4,0,0,0,0,0,0,0,0,-4],
-    [-5,0,0,0,0,0,0,0,0,-5],
-    [-6,0,0,0,0,0,0,0,0,-6],
-    [-7,0,0,0,0,0,0,0,0,-7],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],  //system[10] === MIDDLE!
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [-6,0,0,0,0,0,0,0,0,0],
-    [-6,0,0,0,0,0,0,0,0,0],
-    [-6,-6,0,0,0,0,0,0,0,0],
-    [-5,-5,0,0,0,0,0,0,0,0],
-    [-5,0,0,0,0,0,0,0,0,0],
-    [-5,0,0,0,0,0,-7,0,0,0],
-    [-6,-5,-4,-3,-3,-2,-2,-1,0,0],
-    [-1,-2,-3,-4,-5,-6,-7,-8,0,0]  //system[20] === y-axis[20] == bottom
-    ];
+[-1,0,0,0,0,0,0,0,0,0,0,-1],  //y = 0
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],  //y = 9
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,9,0,0,0,0,0,0,0,-1],
+[-1,0,0,8,0,0,0,0,0,0,0,-1],
+[-1,0,0,7,0,0,0,0,0,0,0,-1],
+[-1,0,0,6,0,0,0,0,0,0,0,-1],
+[-1,0,0,5,0,0,0,0,0,0,0,-1],
+[-1,0,0,4,0,0,0,0,0,0,0,-1],
+[-1,0,0,3,0,0,0,0,0,0,0,-1],
+[-1,0,0,2,0,0,0,0,0,0,0,-1],
+[-1,0,0,1,0,0,0,0,0,0,0,-1],  //y = 20
+[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+];
 
   this.ooh = [
   [0,0,0,0],
@@ -123,7 +125,7 @@ Game.prototype.makePieceDead = function() {
 
 Game.prototype.clearLines = function() {
   // for (let y = this.system.length-1; y > 0; y--) { //from bottom of system
-  for (let y = 0; y < this.system.length; y++) {
+  for (let y = 0; y < this.system.length-2; y++) {
     if (this.system[y].reduce(function(accumulator,currentValue) {return accumulator + currentValue;}) < -9) {
       this.system.splice(y, 1);
       this.system.unshift(this.blankRow);
@@ -175,7 +177,7 @@ Game.prototype.insertNewpiece = function(piece_matrix) {
 }
 
 Game.prototype.rotateCW = function() {
-  if (piece_matrix[0].length === 4) {
+  if (this.alive[0].length === 4) {
     var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
     //tempArray[0][0] = this.alive[3][0];  //always zero
     tempArray[0][1] = this.alive[2][0];
@@ -194,23 +196,37 @@ Game.prototype.rotateCW = function() {
     tempArray[3][2] = this.alive[1][3];
     //tempArray[3][3] = this.alive[0][3];  //always zero
   } else {
-    var tempArray = [[0,0,0],[0,1,0],[0,0,0]];
+    var tempArray = [[0,0,0],[0,0,0],[0,0,0]];
     tempArray[0][0] = this.alive[2][0];
     tempArray[0][1] = this.alive[1][0];
     tempArray[0][2] = this.alive[0][0];
     tempArray[1][0] = this.alive[2][1];
-    //tempArray[1][1] = 1; //this.alive[1][1]; //always === 1
+    tempArray[1][1] = this.alive[1][1];
     tempArray[1][2] = this.alive[0][1];
     tempArray[2][0] = this.alive[2][2];
     tempArray[2][1] = this.alive[1][2];
     tempArray[2][2] = this.alive[0][2];
   }
-    this.alive = tempArray;
-    return this.alive;
+  for (var y = 0; y < this.alive[0].length; y++) {
+    for (var x = 0; x < this.alive[0].length; x++) {
+      if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
+        this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
+      }
+    }
   }
+  this.alive = tempArray;
+  for (var y = 0; y < this.alive[0].length; y++) {
+    for (var x = 0; x < this.alive[0].length; x++) {
+      if (this.alive[y][x] != 0) {
+        this.system[this.alivePos[0]-1+y][this.alivePos[1]+x-1] = this.alive[y][x];
+      }
+    }
+  }
+  return this.alive;
+}
 
 Game.prototype.rotateCCW = function() {
-  if (piece_matrix[0].length === 4) {
+  if (this.alive[0].length === 4) {
     var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
     //tempArray[0][0] = this.alive[0][3];  //always zero
     tempArray[0][1] = this.alive[1][3];
@@ -229,19 +245,34 @@ Game.prototype.rotateCCW = function() {
     tempArray[3][2] = this.alive[2][0];
     //tempArray[3][3] = this.alive[3][0];  //always zero
   } else {
-    var tempArray = [[0,0,0],[0,1,0],[0,0,0]];
+    var tempArray = [[0,0,0],[0,0,0],[0,0,0]];
     tempArray[0][0] = this.alive[0][2];
     tempArray[0][1] = this.alive[1][2];
     tempArray[0][2] = this.alive[2][2];
     tempArray[1][0] = this.alive[0][1];
-    //tempArray[1][1] = 1; //this.alive[1][1]; //always === 1
+    tempArray[1][1] = this.alive[1][1];
     tempArray[1][2] = this.alive[2][1];
     tempArray[2][0] = this.alive[0][0];
     tempArray[2][1] = this.alive[1][0];
     tempArray[2][2] = this.alive[2][0];
   }
-    this.alive = tempArray;
-    return this.alive;
+  for (var y = 0; y < this.alive[0].length; y++) {
+    for (var x = 0; x < this.alive[0].length; x++) {
+      if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
+        this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
+      }
+    }
+  }
+  this.alive = tempArray;
+  for (var y = 0; y < this.alive[0].length; y++) {
+    for (var x = 0; x < this.alive[0].length; x++) {
+      if (this.alive[y][x] != 0) {
+        this.system[this.alivePos[0]-1+y][this.alivePos[1]+x-1] = this.alive[y][x];
+      }
+    }
+  }
+  console.log()
+  return this.alive;
   }
 
 //Look at the future to see if you hit anything
@@ -350,8 +381,8 @@ Game.prototype.lookAheadScanLeft = function() {
     return this.alivePos;
   }
 
-  Game.prototype.updateGrid = function() { //This function should be moved outside of the game object
-  //This redraw is actually for testing and wastes CPU resources.  Use your own redraw library based on the game.state array.
+  Game.prototype.updateGrid = function() { //Move outside game object someday.
+    $('#alivePosDisp').text(this.alivePos);
     for (let y = 0; y < this.system.length; y++) {
       for (let x = 0; x < this.system[0].length; x++) {
         switch (Math.abs(this.system[y][x])) {
@@ -411,9 +442,11 @@ $(document).keydown(function(e) {
     break;
     case 81: // lowercase q
     console.log("q key");
+    game.rotateCW();
     break;
     case 87: // lowercase w
     console.log("w key");
+    game.rotateCCW();
     break;
     case 32: //spacebar
     console.log("spacebar");
