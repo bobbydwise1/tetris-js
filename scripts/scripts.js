@@ -178,7 +178,7 @@ Game.prototype.pickRandompiece = function () {
 }
 
 Game.prototype.insertNewpiece = function(piece_matrix) {
-  this.alivePos = [1,4];
+  this.alivePos = [1,5];
   this.alive = piece_matrix;
   for (var y = 1; y < piece_matrix[0].length; y++) {
     for (var x = 0; x < piece_matrix[0].length; x++) {
