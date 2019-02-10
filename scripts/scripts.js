@@ -311,7 +311,6 @@ Game.prototype.lookAheadScanLeft = function() {
   Game.prototype.moveLeft = function() {
     for (var y = 0; y < this.alive[0].length; y++) {
       for (var x = 0; x < this.alive[0].length; x++) {
-        console.log()
         if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
           this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
           this.system[this.alivePos[0]-1+y][this.alivePos[1]-2+x] = this.alive[y][x];
@@ -319,14 +318,13 @@ Game.prototype.lookAheadScanLeft = function() {
       }
     }
     this.alivePos[1]--;
+    console.log("pos after key press: ", this.alivePos);
     return this.alivePos;
   }
 
-  //Mirror of left move
   Game.prototype.moveRight = function() {
     for (var y = this.alive[0].length-1; y >= 0; y--) {
       for (var x = this.alive[0].length-1; x >= 0; x--) {
-        console.log()
         if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
           this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
           this.system[this.alivePos[0]-1+y][this.alivePos[1]+x] = this.alive[y][x];
@@ -334,11 +332,22 @@ Game.prototype.lookAheadScanLeft = function() {
       }
     }
     this.alivePos[1]++;
+    console.log("pos after key press: ", this.alivePos);
     return this.alivePos;
   }
 
-  Game.prototype.moveDown = function(pieceAlive) {
-    //play the "move" sound here;
+  Game.prototype.moveDown = function() {
+    for (var y = this.alive[0].length-1; y >= 0; y--) {
+      for (var x = 0; x < this.alive[0].length; x++) {
+        if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
+          this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
+          this.system[this.alivePos[0]+y][this.alivePos[1]-1+x] = this.alive[y][x];
+        }
+      }
+    }
+    this.alivePos[0]++;
+    console.log("pos after key press: ", this.alivePos);
+    return this.alivePos;
   }
 
   Game.prototype.updateGrid = function() { //This function should be moved outside of the game object
@@ -398,6 +407,7 @@ $(document).keydown(function(e) {
     break;
     case 40: // down
     console.log("down arrow");
+    game.moveDown();
     break;
     case 81: // lowercase q
     console.log("q key");
