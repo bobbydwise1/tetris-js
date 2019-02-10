@@ -34,15 +34,15 @@ function Game(points,level) {
 [-1,0,0,0,0,0,0,0,0,0,0,-1],  //y = 9
 [-1,0,0,0,0,0,0,0,0,0,0,-1],
 [-1,0,0,0,0,0,0,0,0,0,0,-1],
-[-1,0,0,9,0,0,0,0,0,0,0,-1],
-[-1,0,0,8,0,0,0,0,0,0,0,-1],
-[-1,0,0,7,0,0,0,0,0,0,0,-1],
-[-1,0,0,6,0,0,0,0,0,0,0,-1],
-[-1,0,0,5,0,0,0,0,0,0,0,-1],
-[-1,0,0,4,0,0,0,0,0,0,0,-1],
-[-1,0,0,3,0,0,0,0,0,0,0,-1],
-[-1,0,0,2,0,0,0,0,0,0,0,-1],
-[-1,0,0,1,0,0,0,0,0,0,0,-1],  //y = 20
+[-1,0,0,0,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],
+[-1,0,0,-2,0,0,0,0,0,0,0,-1],  //y = 20
 [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
 ];
@@ -284,6 +284,7 @@ Game.prototype.rotateCCW = function() {
 
 //Look at the future to see if you hit anything
 Game.prototype.lookAheadScanLeft = function() {
+  temp = [];
   if (this.alive[0].length === 4) {
     this.hitDetectLookAhead = this.zeroMatrix4;
   } else {
@@ -294,7 +295,7 @@ Game.prototype.lookAheadScanLeft = function() {
       //if your this.alive[y][x] spot is === 1
       if (this.alive[y][x] >= 1) {
         //check if the left box is a dead piece or null
-        if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] === null)) {
+        if (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) {
           //if it is dead, this is a collision.  make the future spot === negative number
               this.hitDetectLookAhead[y][x] = -1*this.alive[y][x];
         } else {
@@ -303,16 +304,25 @@ Game.prototype.lookAheadScanLeft = function() {
         }  //terminates inner if
       } else {
         //if your this.alive[y][x] is empty, check the this.system spot to the left of you if it is a dead piece or null.  Since your this.alive[y][x] is empty, you can safely take any this.system value of the spot to the left of you
-          if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] === null)) {
+          if (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2] <= -1) {
           this.hitDetectLookAhead[y][x] = this.system[this.alivePos[0]+y-1][this.alivePos[1]+x-2];
         }
       }
     }
+    temp.push(Math.min(...this.hitDetectLookAhead[y]));
   }
-  return this.hitDetectLookAhead;
+  console.log("temp", temp);
+  console.table(this.hitDetectLookAhead)
+  lowest = Math.min(...temp);
+  console.log("lowest", lowest);
+  if (lowest < -1) {
+    return true;
+  }
+  return false;
 }
 //everything is flipped horizontally, because you are checking the right side
   Game.prototype.lookAheadScanRight = function() {
+    temp = [];
     if (this.alive[0].length === 4) {
       this.hitDetectLookAhead = this.zeroMatrix4;
       var rightoffset = 0;
@@ -324,9 +334,9 @@ Game.prototype.lookAheadScanLeft = function() {
       for (var x = this.alive[0].length-1; x >= 0; x--) {
         // console.log("loop no: ", y,"-",x,": this.system scan[y][x]: ",this.alivePos[0]+y-1,"-",this.alivePos[1]+x+rightoffset," value: ",this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset])
         //if your this.alive[y][x] spot is === 1
-        if (this.alive[y][x] === 1) {
+        if (this.alive[y][x] >= 1) {
           //check if the right box is a dead piece or null
-          if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] === null)) {
+          if (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] <= -1) {
                 this.hitDetectLookAhead[y][x] = -1*this.alive[y][x];
           } else {
             //otherwise, it's an empty spot, make it equal the this.alive piece;
@@ -334,42 +344,53 @@ Game.prototype.lookAheadScanLeft = function() {
           }  //terminates nexted if block.  next section of code continues the outer if.
         } else {
           //if your this.alive[y][x] is empty, check the this.system spot to the right of you if it is a dead piece or null.  Since your this.alive[y][x] is empty, you can safely take any this.system value of the spot to the left of you
-          if ((this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] <= -1) || (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] === null)) {
+          if (this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset] <= -1) {
             this.hitDetectLookAhead[y][x] = this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset];
             // console.log(y,"-",x,": ",this.system[this.alivePos[0]+y-1][this.alivePos[1]+x+rightoffset])
           }
           // debugger;
         }
       }
-      // console.log("lookahead: ",this.hitDetectLookAhead)
+      temp.push(Math.min(...this.hitDetectLookAhead[y]));
     }
-    return this.hitDetectLookAhead;
+    console.log("temp", temp);
+    console.table(this.hitDetectLookAhead)
+    lowest = Math.min(...temp);
+    console.log("lowest", lowest);
+    if (lowest < -1) {
+      return true;
+    }
+    return false;
   }
 
   Game.prototype.moveLeft = function() {
-    for (var y = 0; y < this.alive[0].length; y++) {
-      for (var x = 0; x < this.alive[0].length; x++) {
-        if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
-          this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
-          this.system[this.alivePos[0]-1+y][this.alivePos[1]-2+x] = this.alive[y][x];
+    if (this.lookAheadScanLeft() === false) {
+      for (var y = 0; y < this.alive[0].length; y++) {
+        for (var x = 0; x < this.alive[0].length; x++) {
+          if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
+            this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
+            this.system[this.alivePos[0]-1+y][this.alivePos[1]-2+x] = this.alive[y][x];
+          }
         }
       }
+      this.alivePos[1]--;
     }
-    this.alivePos[1]--;
-    console.log("pos after key press: ", this.alivePos);
-    return this.alivePos;
-  }
+      console.log("pos after key press: ", this.alivePos);
+      return this.alivePos;
+    }
 
   Game.prototype.moveRight = function() {
-    for (var y = this.alive[0].length-1; y >= 0; y--) {
-      for (var x = this.alive[0].length-1; x >= 0; x--) {
-        if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
-          this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
-          this.system[this.alivePos[0]-1+y][this.alivePos[1]+x] = this.alive[y][x];
+    if (this.lookAheadScanRight() === false) {
+      for (var y = this.alive[0].length-1; y >= 0; y--) {
+        for (var x = this.alive[0].length-1; x >= 0; x--) {
+          if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
+            this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
+            this.system[this.alivePos[0]-1+y][this.alivePos[1]+x] = this.alive[y][x];
+          }
         }
       }
+      this.alivePos[1]++;
     }
-    this.alivePos[1]++;
     console.log("pos after key press: ", this.alivePos);
     return this.alivePos;
   }
