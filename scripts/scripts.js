@@ -284,36 +284,27 @@ Game.prototype.rotateCCW = function() {
   }
 
   Game.prototype.moveLeft = function() {
-    // console.log("start alivePos= ",this.alivePos);
     for (var y = 0; y < this.alive[0].length; y++) {
       for (var x = 0; x < this.alive[0].length; x++) {
-        if (this.system[y+this.alivePos[0]-1][x+this.alivePos[1]-1] === this.alive[y][x]) {
-          this.system[y+this.alivePos[0]-1][x+this.alivePos[1]-1] = 0;
-          this.system[y+this.alivePos[0]-1][x+this.alivePos[1]-2] = this.alive[y][x];
+        console.log()
+        if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
+          this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
+          this.system[this.alivePos[0]-1+y][this.alivePos[1]-2+x] = this.alive[y][x];
         }
       }
     }
     this.alivePos[1]--;
-    // console.log("end alivePos= ",this.alivePos);
-    // console.table(this.system);
     return this.alivePos;
   }
 
+  //Mirror of left move
   Game.prototype.moveRight = function() {
-    if (this.alive[0].length === 4) {
-      var rightoffset = 0;
-    } else {
-      var rightoffset = 0;
-    }
-    console.log("start alivePos= ",this.alivePos);
-    for (var y = this.alive[0].length-1; y > 0; y--) {
-      for (var x = this.alive[0].length-1; x > 0; x--) {
-        if (this.system[y+this.alivePos[0]-1][x+this.alivePos[1]-1] === this.alive[y][x]) {
-          this.system[y+this.alivePos[0]-1][x+this.alivePos[1]-1] = 0;
-          this.system[y+this.alivePos[0]-1][x+this.alivePos[1]] = this.alive[y][x];
-          console.log("end alivePos= ",this.alivePos);
-          console.table(this.system);
-          // debugger;
+    for (var y = this.alive[0].length-1; y >= 0; y--) {
+      for (var x = this.alive[0].length-1; x >= 0; x--) {
+        console.log()
+        if ((this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] === this.alive[y][x]) && (this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] != 0)) {
+          this.system[this.alivePos[0]-1+y][this.alivePos[1]-1+x] = 0;
+          this.system[this.alivePos[0]-1+y][this.alivePos[1]+x] = this.alive[y][x];
         }
       }
     }
@@ -326,6 +317,7 @@ Game.prototype.rotateCCW = function() {
   }
 
   Game.prototype.updateGrid = function() { //This function should be moved outside of the game object
+  //This redraw is actually for testing and wastes CPU resources.  Use your own redraw library based on the game.state array.
     for (let y = 0; y < this.system.length; y++) {
       for (let x = 0; x < this.system[0].length; x++) {
         switch (Math.abs(this.system[y][x])) {
