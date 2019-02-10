@@ -176,6 +176,10 @@ Game.prototype.insertNewpiece = function(piece_matrix) {
   return this.alivePos;  //this.system position of piece_matrix[1][1] alaways starts at this.system[0][4];
 }
 
+//RotateCW could probably be done with a fancy non-standard nested loops.
+//for (y=0; y<this.alive.length; y++) {
+//for (x=0; x<this.alive.length; x++) {
+//tempArray[y][x] = this.alive[this.alive[0].length-1-x][y];}}
 Game.prototype.rotateCW = function() {
   if (this.alive[0].length === 4) {
     var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
@@ -224,7 +228,10 @@ Game.prototype.rotateCW = function() {
   }
   return this.alive;
 }
-
+//RotateCCW could probably be done with a fancy non-standard nested loops.
+//for (y=0; y<this.alive.length; y++) {
+//for (x=0; x<this.alive.length; x++) {
+//tempArray[y][x] = this.alive[x][this.alive[0].length-1-y];}}
 Game.prototype.rotateCCW = function() {
   if (this.alive[0].length === 4) {
     var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
