@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/styles.css">
-    <script
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/styles.css">
+  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-    <script src="./scripts/scripts.js"></script>
-    <title>test</title>
-  </head>
-  <body>
-    <h4>Tetris</h4>
+  <script src="./scripts/scripts.js"></script>
+  <title>test</title>
+</head>
+<body>
+  <div class="container title">
+    <h1>Tetris</h1>
     <div>
       <p>Points: <a id="pointsDisp"></a>| Level: <a id="levelDisp"></a> | Lines: <a id="linesDisp"></a></p>
-    </div>
+  </div>
 
     <div class="container">
       <div class="grid-container">
-
-        <div id="gee0-0" class="grid-item">(0-0)</div>
         <div id="gee0-1" class="grid-item">(0-1)</div>
         <div id="gee0-2" class="grid-item">(0-2)</div>
         <div id="gee0-3" class="grid-item">(0-3)</div>
@@ -31,9 +30,7 @@
         <div id="gee0-8" class="grid-item">(0-8)</div>
         <div id="gee0-9" class="grid-item">(0-9)</div>
         <div id="gee0-10" class="grid-item">(0-10)</div>
-        <div id="gee0-11" class="grid-item">(0-11)</div>
 
-        <div id="gee1-0" class="grid-item">(1-0)</div>
         <div id="gee1-1" class="grid-item">(1-1)</div>
         <div id="gee1-2" class="grid-item">(1-2)</div>
         <div id="gee1-3" class="grid-item">(1-3)</div>
@@ -44,9 +41,7 @@
         <div id="gee1-8" class="grid-item">(1-8)</div>
         <div id="gee1-9" class="grid-item">(1-9)</div>
         <div id="gee1-10" class="grid-item">(1-10)</div>
-        <div id="gee1-11" class="grid-item">(1-11)</div>
 
-        <div id="gee2-0" class="grid-item">(2-0)</div>
         <div id="gee2-1" class="grid-item">(2-1)</div>
         <div id="gee2-2" class="grid-item">(2-2)</div>
         <div id="gee2-3" class="grid-item">(2-3)</div>
@@ -57,9 +52,7 @@
         <div id="gee2-8" class="grid-item">(2-8)</div>
         <div id="gee2-9" class="grid-item">(2-9)</div>
         <div id="gee2-10" class="grid-item">(2-10)</div>
-        <div id="gee2-11" class="grid-item">(2-11)</div>
 
-        <div id="gee3-0" class="grid-item">(3-0)</div>
         <div id="gee3-1" class="grid-item">(3-1)</div>
         <div id="gee3-2" class="grid-item">(3-2)</div>
         <div id="gee3-3" class="grid-item">(3-3)</div>
@@ -70,9 +63,7 @@
         <div id="gee3-8" class="grid-item">(3-8)</div>
         <div id="gee3-9" class="grid-item">(3-9)</div>
         <div id="gee3-10" class="grid-item">(3-10)</div>
-        <div id="gee3-11" class="grid-item">(3-11)</div>
 
-        <div id="gee4-0" class="grid-item">(4-0)</div>
         <div id="gee4-1" class="grid-item">(4-1)</div>
         <div id="gee4-2" class="grid-item">(4-2)</div>
         <div id="gee4-3" class="grid-item">(4-3)</div>
@@ -83,9 +74,7 @@
         <div id="gee4-8" class="grid-item">(4-8)</div>
         <div id="gee4-9" class="grid-item">(4-9)</div>
         <div id="gee4-10" class="grid-item">(4-10)</div>
-        <div id="gee4-11" class="grid-item">(4-11)</div>
 
-        <div id="gee5-0" class="grid-item">(5-0)</div>
         <div id="gee5-1" class="grid-item">(5-1)</div>
         <div id="gee5-2" class="grid-item">(5-2)</div>
         <div id="gee5-3" class="grid-item">(5-3)</div>
@@ -96,9 +85,7 @@
         <div id="gee5-8" class="grid-item">(5-8)</div>
         <div id="gee5-9" class="grid-item">(5-9)</div>
         <div id="gee5-10" class="grid-item">(5-10)</div>
-        <div id="gee5-11" class="grid-item">(5-11)</div>
 
-        <div id="gee6-0" class="grid-item">(6-0)</div>
         <div id="gee6-1" class="grid-item">(6-1)</div>
         <div id="gee6-2" class="grid-item">(6-2)</div>
         <div id="gee6-3" class="grid-item">(6-3)</div>
@@ -109,9 +96,7 @@
         <div id="gee6-8" class="grid-item">(6-8)</div>
         <div id="gee6-9" class="grid-item">(6-9)</div>
         <div id="gee6-10" class="grid-item">(6-10)</div>
-        <div id="gee6-11" class="grid-item">(6-11)</div>
 
-        <div id="gee7-0" class="grid-item">(7-0)</div>
         <div id="gee7-1" class="grid-item">(7-1)</div>
         <div id="gee7-2" class="grid-item">(7-2)</div>
         <div id="gee7-3" class="grid-item">(7-3)</div>
@@ -122,9 +107,7 @@
         <div id="gee7-8" class="grid-item">(7-8)</div>
         <div id="gee7-9" class="grid-item">(7-9)</div>
         <div id="gee7-10" class="grid-item">(7-10)</div>
-        <div id="gee7-11" class="grid-item">(7-11)</div>
 
-        <div id="gee8-0" class="grid-item">(8-0)</div>
         <div id="gee8-1" class="grid-item">(8-1)</div>
         <div id="gee8-2" class="grid-item">(8-2)</div>
         <div id="gee8-3" class="grid-item">(8-3)</div>
@@ -135,9 +118,7 @@
         <div id="gee8-8" class="grid-item">(8-8)</div>
         <div id="gee8-9" class="grid-item">(8-9)</div>
         <div id="gee8-10" class="grid-item">(8-10)</div>
-        <div id="gee8-11" class="grid-item">(8-11)</div>
 
-        <div id="gee9-0" class="grid-item">(9-0)</div>
         <div id="gee9-1" class="grid-item">(9-1)</div>
         <div id="gee9-2" class="grid-item">(9-2)</div>
         <div id="gee9-3" class="grid-item">(9-3)</div>
@@ -148,9 +129,7 @@
         <div id="gee9-8" class="grid-item">(9-8)</div>
         <div id="gee9-9" class="grid-item">(9-9)</div>
         <div id="gee9-10" class="grid-item">(9-10)</div>
-        <div id="gee9-11" class="grid-item">(9-11)</div>
 
-        <div id="gee10-0" class="grid-item">(10-0)</div>
         <div id="gee10-1" class="grid-item">(10-1)</div>
         <div id="gee10-2" class="grid-item">(10-2)</div>
         <div id="gee10-3" class="grid-item">(10-3)</div>
@@ -161,10 +140,8 @@
         <div id="gee10-8" class="grid-item">(10-8)</div>
         <div id="gee10-9" class="grid-item">(10-9)</div>
         <div id="gee10-10" class="grid-item">(10-10)</div>
-        <div id="gee10-11" class="grid-item">(10-11)</div>
 
-        <div id="gee11-0" class="grid-item">(11-0)</div>
-        <div id="gee11-1" class="grid-item">(11-1)</div>
+        <div id="gee10-1" class="grid-item">(11-1)</div>
         <div id="gee11-2" class="grid-item">(11-2)</div>
         <div id="gee11-3" class="grid-item">(11-3)</div>
         <div id="gee11-4" class="grid-item">(11-4)</div>
@@ -174,9 +151,7 @@
         <div id="gee11-8" class="grid-item">(11-8)</div>
         <div id="gee11-9" class="grid-item">(11-9)</div>
         <div id="gee11-10" class="grid-item">(11-10)</div>
-        <div id="gee11-11" class="grid-item">(11-11)</div>
 
-        <div id="gee12-0" class="grid-item">(12-0)</div>
         <div id="gee12-1" class="grid-item">(12-1)</div>
         <div id="gee12-2" class="grid-item">(12-2)</div>
         <div id="gee12-3" class="grid-item">(12-3)</div>
@@ -187,9 +162,7 @@
         <div id="gee12-8" class="grid-item">(12-8)</div>
         <div id="gee12-9" class="grid-item">(12-9)</div>
         <div id="gee12-10" class="grid-item">(12-10)</div>
-        <div id="gee12-11" class="grid-item">(12-11)</div>
 
-        <div id="gee13-0" class="grid-item">(13-0)</div>
         <div id="gee13-1" class="grid-item">(13-1)</div>
         <div id="gee13-2" class="grid-item">(13-2)</div>
         <div id="gee13-3" class="grid-item">(13-3)</div>
@@ -200,9 +173,7 @@
         <div id="gee13-8" class="grid-item">(13-8)</div>
         <div id="gee13-9" class="grid-item">(13-9)</div>
         <div id="gee13-10" class="grid-item">(13-10)</div>
-        <div id="gee13-11" class="grid-item">(13-11)</div>
 
-        <div id="gee14-0" class="grid-item">(14-0)</div>
         <div id="gee14-1" class="grid-item">(14-1)</div>
         <div id="gee14-2" class="grid-item">(14-2)</div>
         <div id="gee14-3" class="grid-item">(14-3)</div>
@@ -213,9 +184,7 @@
         <div id="gee14-8" class="grid-item">(14-8)</div>
         <div id="gee14-9" class="grid-item">(14-9)</div>
         <div id="gee14-10" class="grid-item">(14-10)</div>
-        <div id="gee14-11" class="grid-item">(14-11)</div>
 
-        <div id="gee15-0" class="grid-item">(15-0)</div>
         <div id="gee15-1" class="grid-item">(15-1)</div>
         <div id="gee15-2" class="grid-item">(15-2)</div>
         <div id="gee15-3" class="grid-item">(15-3)</div>
@@ -226,9 +195,7 @@
         <div id="gee15-8" class="grid-item">(15-8)</div>
         <div id="gee15-9" class="grid-item">(15-9)</div>
         <div id="gee15-10" class="grid-item">(15-10)</div>
-        <div id="gee15-11" class="grid-item">(15-11)</div>
 
-        <div id="gee16-0" class="grid-item">(16-0)</div>
         <div id="gee16-1" class="grid-item">(16-1)</div>
         <div id="gee16-2" class="grid-item">(16-2)</div>
         <div id="gee16-3" class="grid-item">(16-3)</div>
@@ -239,9 +206,7 @@
         <div id="gee16-8" class="grid-item">(16-8)</div>
         <div id="gee16-9" class="grid-item">(16-9)</div>
         <div id="gee16-10" class="grid-item">(16-10)</div>
-        <div id="gee16-11" class="grid-item">(16-11)</div>
 
-        <div id="gee17-0" class="grid-item">(17-0)</div>
         <div id="gee17-1" class="grid-item">(17-1)</div>
         <div id="gee17-2" class="grid-item">(17-2)</div>
         <div id="gee17-3" class="grid-item">(17-3)</div>
@@ -252,9 +217,7 @@
         <div id="gee17-8" class="grid-item">(17-8)</div>
         <div id="gee17-9" class="grid-item">(17-9)</div>
         <div id="gee17-10" class="grid-item">(17-10)</div>
-        <div id="gee17-11" class="grid-item">(17-11)</div>
 
-        <div id="gee18-0" class="grid-item">(18-0)</div>
         <div id="gee18-1" class="grid-item">(18-1)</div>
         <div id="gee18-2" class="grid-item">(18-2)</div>
         <div id="gee18-3" class="grid-item">(18-3)</div>
@@ -265,9 +228,7 @@
         <div id="gee18-8" class="grid-item">(18-8)</div>
         <div id="gee18-9" class="grid-item">(18-9)</div>
         <div id="gee18-10" class="grid-item">(18-10)</div>
-        <div id="gee18-11" class="grid-item">(18-11)</div>
 
-        <div id="gee19-0" class="grid-item">(19-0)</div>
         <div id="gee19-1" class="grid-item">(19-1)</div>
         <div id="gee19-2" class="grid-item">(19-2)</div>
         <div id="gee19-3" class="grid-item">(19-3)</div>
@@ -278,9 +239,7 @@
         <div id="gee19-8" class="grid-item">(19-8)</div>
         <div id="gee19-9" class="grid-item">(19-9)</div>
         <div id="gee19-10" class="grid-item">(19-10)</div>
-        <div id="gee19-11" class="grid-item">(19-11)</div>
 
-        <div id="gee20-0" class="grid-item">(20-0)</div>
         <div id="gee20-1" class="grid-item">(20-1)</div>
         <div id="gee20-2" class="grid-item">(20-2)</div>
         <div id="gee20-3" class="grid-item">(20-3)</div>
@@ -291,37 +250,12 @@
         <div id="gee20-8" class="grid-item">(20-8)</div>
         <div id="gee20-9" class="grid-item">(20-9)</div>
         <div id="gee20-10" class="grid-item">(20-10)</div>
-        <div id="gee20-11" class="grid-item">(20-11)</div>
 
-        <div id="gee21-0" class="grid-item">(21-0)</div>
-        <div id="gee21-1" class="grid-item">(21-1)</div>
-        <div id="gee21-2" class="grid-item">(21-2)</div>
-        <div id="gee21-3" class="grid-item">(21-3)</div>
-        <div id="gee21-4" class="grid-item">(21-4)</div>
-        <div id="gee21-5" class="grid-item">(21-5)</div>
-        <div id="gee21-6" class="grid-item">(21-6)</div>
-        <div id="gee21-7" class="grid-item">(21-7)</div>
-        <div id="gee21-8" class="grid-item">(21-8)</div>
-        <div id="gee21-9" class="grid-item">(21-9)</div>
-        <div id="gee21-10" class="grid-item">(21-10)</div>
-        <div id="gee21-11" class="grid-item">(21-11)</div>
-
-        <div id="gee22-0" class="grid-item">(22-0)</div>
-        <div id="gee22-1" class="grid-item">(22-1)</div>
-        <div id="gee22-2" class="grid-item">(22-2)</div>
-        <div id="gee22-3" class="grid-item">(22-3)</div>
-        <div id="gee22-4" class="grid-item">(22-4)</div>
-        <div id="gee22-5" class="grid-item">(22-5)</div>
-        <div id="gee22-6" class="grid-item">(22-6)</div>
-        <div id="gee22-7" class="grid-item">(22-7)</div>
-        <div id="gee22-8" class="grid-item">(22-8)</div>
-        <div id="gee22-9" class="grid-item">(22-9)</div>
-        <div id="gee22-10" class="grid-item">(22-10)</div>
-        <div id="gee22-11" class="grid-item">(22-11)</div>
       </div>
     </div>
     <div>
-      <p>Center of alivePos: <a id="alivePosDisp"></a></p>
+      <p>debug: Center of alivePos: <a id="alivePosDisp"></a></p>
     </div>
-  </body>
+  </div>
+</body>
 </html>

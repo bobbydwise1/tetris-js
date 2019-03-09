@@ -1,37 +1,41 @@
-body {background-color: lightyellow;}
+body {background-color: green;}
 .item1 { grid-area: header; }
 .item2 { grid-area: menu; }
 .item3 { grid-area: main; }
 .item4 { grid-area: right; }
 .item5 { grid-area: footer; }
 
+.title {
+  text-align: center;
+}
+
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header header header header header header header header header header header header'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu main main main main main main main main main main right'
-    'menu footer footer footer footer footer footer footer footer footer footer footer';
+    'header header header header header header header header header header'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'footer footer footer footer footer footer footer footer footer footer';
   grid-gap: 2px;
   background-color: lightgrey;
   padding: 4px;
