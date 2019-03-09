@@ -14,17 +14,6 @@ function Game(points,level) {
   this.lines = 0;
   this.gameOver = 0;
   var blankRow = [-1,0,0,0,0,0,0,0,0,0,0,-1];
-  var zeroMatrix3 = [
-    [0,0,0],
-    [0,0,0],
-    [0,0,0]
-  ];
-  var zeroMatrix4 = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0]
-  ];
   this.hitDetectLookAhead3 = 0;
   this.hitDetectLookAhead4 = 0;
   this.system = [
@@ -50,8 +39,8 @@ function Game(points,level) {
 [-1,0,0,0,0,0,0,0,0,0,0,-1],
 [-1,0,0,0,0,0,0,0,0,0,0,-1], //y = 20
 [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1], //Required for hit detect
-[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1], //do not get rid of this
-[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]  //do not get rid of this
+[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
 ];
   this.ooh = [
   [0,0,0,0],
@@ -127,8 +116,8 @@ function Game(points,level) {
       [-1,0,0,0,0,0,0,0,0,0,0,-1],
       [-1,0,0,0,0,0,0,0,0,0,0,-1], //y = 20
       [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1], //Required for hit detect
-      [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1], //do not get rid of this
-      [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]  //do not get rid of this
+      [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+      [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
   ];
     console.log("Reset this.system");
     this.points = 0;
@@ -290,17 +279,13 @@ function Game(points,level) {
     }
     for (var y = 0; y < this.alive[0].length; y++) {
       for (var x = this.alive[0].length-1; x >= 0; x--) {
-        //if your this.alive[y][x] spot is === 1
         if (this.alive[y][x] >= 1) {
-          //check if the right box is a dead piece or null
           if (this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset] <= -1) {
                 this.hitDetectLookAhead[y][x] = -1*this.alive[y][x];
           } else {
-            //otherwise, it's an empty spot, make it equal the this.alive piece;
             this.hitDetectLookAhead[y][x] = this.alive[y][x];
-          }  //terminates nexted if block.  next section of code continues the outer if.
+          }
         } else {
-          //if your this.alive[y][x] is empty, check the this.system spot to the right of you if it is a dead piece or null.  Since your this.alive[y][x] is empty, you can safely take any this.system value of the spot to the right of you+
           if (this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset] <= -1) {
             this.hitDetectLookAhead[y][x] = -this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset];
           }
@@ -309,12 +294,8 @@ function Game(points,level) {
       }
       temp.push(Math.min(...this.hitDetectLookAhead[y]));
     }
-    // console.log("temp", temp);
-    // console.table(this.hitDetectLookAhead)
     lowest = Math.min(...temp);
-    // console.log("lowest", lowest);
     if (lowest < -1) {
-      // console.log("Hit detect right = true")
       return true;
     }
     return false;
@@ -383,29 +364,21 @@ function Game(points,level) {
     for (var y = 0; y < futureRotate[0].length; y++) {
       for (var x = 0; x < futureRotate[0].length; x++) {
         if (futureRotate[y][x] >= 1) {
-          //check if the right box is a dead piece or null
           if (this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset] <= -1) {
                 this.hitDetectLookAhead[y][x] = -1*futureRotate[y][x];
           } else {
-            //otherwise, it's an empty spot, make it equal the futureRotate piece;
             this.hitDetectLookAhead[y][x] = futureRotate[y][x];
-          }  //terminates nexted if block.  next section of code continues the outer if.
+          }
         } else {
-          //if your futureRotate[y][x] is empty, check the this.system spot to the right of you if it is a dead piece or null.  Since your futureRotate[y][x] is empty, you can safely take any this.system value of the spot to the right of you+
           if (this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset] <= -1) {
             this.hitDetectLookAhead[y][x] = -this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset];
           }
-          // debugger;
         }
       }
       temp.push(Math.min(...this.hitDetectLookAhead[y]));
     }
-    // console.log("temp", temp);
-    // console.table(this.hitDetectLookAhead)
     lowest = Math.min(...temp);
-    // console.log("lowest", lowest);
     if (lowest < -1) {
-      // console.log("Rotate CW hit = true")
       return true;
     }
     return false;
@@ -433,29 +406,21 @@ function Game(points,level) {
     for (var y = 0; y < futureRotate[0].length; y++) {
       for (var x = 0; x < futureRotate[0].length; x++) {
         if (futureRotate[y][x] >= 1) {
-          //check if the right box is a dead piece or null
           if (this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset] <= -1) {
                 this.hitDetectLookAhead[y][x] = -1*futureRotate[y][x];
           } else {
-            //otherwise, it's an empty spot, make it equal the futureRotate piece;
             this.hitDetectLookAhead[y][x] = futureRotate[y][x];
-          }  //terminates nexted if block.  next section of code continues the outer if.
+          }
         } else {
-          //if your futureRotate[y][x] is empty, check the this.system spot to the right of you if it is a dead piece or null.  Since your futureRotate[y][x] is empty, you can safely take any this.system value of the spot to the right of you+
           if (this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset] <= -1) {
             this.hitDetectLookAhead[y][x] = -this.system[this.alivePos[0]+y+yoffset][this.alivePos[1]+x+xoffset];
           }
-          // debugger;
         }
       }
       temp.push(Math.min(...this.hitDetectLookAhead[y]));
     }
-    // console.log("temp", temp);
-    // console.table(this.hitDetectLookAhead)
     lowest = Math.min(...temp);
-    // console.log("lowest", lowest);
     if (lowest < -1) {
-      // console.log("Rotate CCW hit = true")
       return true;
     }
     return false;
@@ -475,7 +440,6 @@ function Game(points,level) {
       }
       this.alivePos[1]--;
     }
-      // console.log("pos after key press: ", this.alivePos);
       return this.alivePos;
     }
 
@@ -493,8 +457,6 @@ function Game(points,level) {
       }
       this.alivePos[1]++;
     }
-    // console.log("pos after key press: ", this.alivePos);
-    // console.log(zeroMatrix3);
     return this.alivePos;
   }
 
@@ -514,7 +476,6 @@ function Game(points,level) {
       }
       this.alivePos[0]++;
     }
-    // console.log("pos after key press: ", this.alivePos);
     return this.alivePos;
   }
 
@@ -552,9 +513,9 @@ function Game(points,level) {
     return tempArray;
     //RotateCW could probably be done with a fancy non-standard nested loops.
     //for (y=0; y<this.alive.length; y++) {
-      //for (x=0; x<this.alive.length; x++) {
-        //tempArray[y][x] = this.alive[this.alive[0].length-1-x][y];}}
-      }
+    //for (x=0; x<this.alive.length; x++) {
+    //tempArray[y][x] = this.alive[this.alive[0].length-1-x][y];}}
+    }
 
   Game.prototype.moveCW = function() {  //This is the actual CW
     //A "bounce" rotate hit detect must be added
@@ -615,12 +576,11 @@ function Game(points,level) {
     return tempArray;
     //RotateCCW could probably be done with a fancy non-standard nested loops.
     //for (y=0; y<this.alive.length; y++) {
-      //for (x=0; x<this.alive.length; x++) {
-        //tempArray[y][x] = this.alive[x][this.alive[0].length-1-y];}}
-      }
+    //for (x=0; x<this.alive.length; x++) {
+    //tempArray[y][x] = this.alive[x][this.alive[0].length-1-y];}}
+  }
 
   Game.prototype.moveCCW = function() { //This is actual CCW
-    //A "bounce" rotate hit detect must be added
     if (this.lookAheadScanRotateCCW() === false) {
       tempArray = this.rotateCCW(this.alive);
       //This erases the old block on game system
