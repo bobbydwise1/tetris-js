@@ -2,7 +2,7 @@
 
 #### _Classic Tetris created in JavaScript and jQuery, for educational purposes._
 
-#### By _**Robert Lee**_
+#### By _**Robert Lee**_, 08-MAR-2019
 
 ## Description
 

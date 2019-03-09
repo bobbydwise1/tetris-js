@@ -1,6 +1,6 @@
 // Tetris Clone
 // Classic Tetris created in JavaScript and jQuery, for educational purposes.
-// By Robert Lee
+// By Robert Lee 08-MAR-2019
 
 var game = new Game(0,0)
 
