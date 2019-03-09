@@ -53,6 +53,7 @@ _Classic Tetris, done in JavaScript._
 ## Known Bugs
 
 * _Pressing down after game over creates more dead blocks._
+* _Gravity timer does not appear to speed up with each level._
 
 ## Support and contact details
 

@@ -144,16 +144,18 @@ function Game(points,level) {
     }
     switch (linesCleared) {
       case 4:
-      this.points += 1200*linesCleared*(this.level+1);
+      this.points += 1200*(this.level+1);
       break;
       case 3:
-      this.points += 300*linesCleared*(this.level+1);
+      this.points += 300*(this.level+1);
       break;
       case 2:
-      this.points += 100*linesCleared*(this.level+1);
+      this.points += 100*(this.level+1);
       break;
+      case 1:
+      this.points += 10*(this.level+1);
       default:
-      this.points += 10*linesCleared*(this.level+1);
+      ;
     }
     this.level = Math.floor(this.lines/10);
     this.updateGrid();
