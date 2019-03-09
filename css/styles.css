@@ -45,6 +45,11 @@ body {background-color: lightyellow;}
   font-stretch: condensed;
 }
 
+.grid-item {
+  min-width: 35px;
+  min-height: 35px;
+}
+
 div.grid-color-dark {background-color: black;}
 div.grid-color-grey {background-color: lightgrey;}
 div.grid-color-brown {background-color: brown;}
