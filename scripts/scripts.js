@@ -1,3 +1,7 @@
+// Tetris Clone
+// Classic Tetris created in JavaScript and jQuery, for educational purposes.
+// By Robert Lee
+
 var game = new Game(0,0)
 
 function Game(points,level) {
