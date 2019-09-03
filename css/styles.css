@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 body {background-color: MidnightBlue;}
+=======
+/* Tetris Clone
+Classic Tetris created in JavaScript and jQuery, for educational purposes.
+By Robert Lee 08-MAR-2019*/
+
+body {background-color: green;}
+>>>>>>> 9c3b2e2b6e8cdfa5fbecc97c0f7c55177a7da808
 .item1 { grid-area: header; }
 .item2 { grid-area: menu; }
 .item3 { grid-area: main; }
