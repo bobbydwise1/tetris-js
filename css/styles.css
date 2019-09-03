@@ -13,8 +13,15 @@ p {
   text-align: center;
 }
 
+.box {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%
+}
+
 .grid-container {
-  display: grid;
+  display: inline-grid;
   justify-content: center;
   grid-template-columns: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
   grid-auto-columns: 40px;
