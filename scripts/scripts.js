@@ -186,6 +186,10 @@ class Game {
        default:
          temp = this.zee;
      }
+    //  let turns = Math.floor((Math.random()*3));
+    //  for ( let i = 0; i < turns; i++ ) {
+    //    temp = 
+    //  }
      return temp;
   }
 
@@ -199,7 +203,6 @@ class Game {
 
   insertNewpiece(piece_matrix) { //insert new piece and game over detect
     this.next = this.doNotPickSamePieceTwice(piece_matrix)
-    console.table(this.next)
     this.alivePos = [1,5];
     this.alive = piece_matrix;
     for (let y = 1; y < piece_matrix[0].length; y++) {
@@ -621,6 +624,7 @@ class Game {
     $('#levelDisp').text(this.level);
     $('#linesDisp').text(this.lines);
     $('#alivePosDisp').text(this.alivePos);
+    //redraw main grid
     for (let y = 0; y < this.system.length; y++) {
       for (let x = 0; x < this.system[0].length; x++) {
         switch (Math.abs(this.system[y][x])) {
@@ -656,6 +660,58 @@ class Game {
           }
         }
       }
+      //redraw next box
+      $('#next0-0').removeClass().addClass("grid-color-dark");
+      $('#next0-1').removeClass().addClass("grid-color-dark");
+      $('#next0-2').removeClass().addClass("grid-color-dark");
+      $('#next0-3').removeClass().addClass("grid-color-dark");
+      $('#next1-0').removeClass().addClass("grid-color-dark");
+      $('#next1-1').removeClass().addClass("grid-color-dark");
+      $('#next1-2').removeClass().addClass("grid-color-dark");
+      $('#next1-3').removeClass().addClass("grid-color-dark");
+      $('#next2-0').removeClass().addClass("grid-color-dark");
+      $('#next2-1').removeClass().addClass("grid-color-dark");
+      $('#next2-2').removeClass().addClass("grid-color-dark");
+      $('#next2-3').removeClass().addClass("grid-color-dark");
+      $('#next3-0').removeClass().addClass("grid-color-dark");
+      $('#next3-1').removeClass().addClass("grid-color-dark");
+      $('#next3-2').removeClass().addClass("grid-color-dark");
+      $('#next3-3').removeClass().addClass("grid-color-dark");
+      for (let y = 0; y < this.next.length; y++) {
+        for (let x = 0; x < this.next[0].length; x++) {
+          switch (Math.abs(this.next[y][x])) {
+            case 0:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-dark");
+            break;
+            case 1:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-brown");
+            break;
+            case 2:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-red");
+            break;
+            case 3:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-orange");
+            break;
+            case 4:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-yellow");
+            break;
+            case 5:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-green");
+            break;
+            case 6:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-blue");
+            break;
+            case 7:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-indigo");
+            break;
+            case 8:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-purple");
+            break;
+            default:
+              $('#next'+ y + "-" + x).removeClass().addClass("grid-color-dark");
+            }
+          }
+        }
     }
 
   gameLoop() {

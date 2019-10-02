@@ -28,7 +28,16 @@ p {
   grid-gap: 2px;
   background-color: darkgrey;
   padding: 4px;
+}
 
+.grid-next {
+  display: inline-grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, 40px);
+  grid-auto-columns: 40px;
+  grid-gap: 2px;
+  background-color: darkgrey;
+  padding: 4px;
 }
 
 div.grid-item {background-color: black; min-width: 35px;  min-height: 35px;}
