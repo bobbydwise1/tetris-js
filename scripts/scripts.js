@@ -700,107 +700,90 @@ $(document).keydown(function(e) { //UI logic and keytrapping
   
 });
 
+//https://gamedevelopment.tutsplus.com/tutorials/using-the-html5-gamepad-api-to-add-controller-support-to-browser-games--cms-21345
+
+var hasGP = false;
+var repGP;
+
+function canGame() {
+    return "getGamepads" in navigator;
+}
+
+function reportOnGamepad() {
+    var gp = navigator.getGamepads()[0];
+    var html = "";
+        html += "id: "+gp.id+"<br/>";
+
+    for(var i=0;i<gp.buttons.length;i++) {
+        html+= "Button "+(i+1)+": ";
+        if(gp.buttons[i].pressed) html+= " pressed";
+        html+= "<br/>";
+    }
+
+    for(var i=0;i<gp.axes.length; i+=2) {
+        html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
+    }
+
+    $("#gamepadDisplay").html(html);
+}
+
 $(document).ready(function() {
+  var hasGP = false;
+	var repGP;
+	
+	function canGame() {
+		return "getGamepads" in navigator;
+	}
 
-  var gamepadInfo = document.getElementById("gamepad-info");
-  var ball = document.getElementById("ball");
-  var start;
-  var a = 0;
-  var b = 0;
-  
-  window.addEventListener("gamepadconnected", function(e) {
-    var gp = navigator.getGamepads()[e.gamepad.index];
-    gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id + ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
-  
-    gameLoop();
-  });
-  
-  window.addEventListener("gamepaddisconnected", function(e) {
-    gamepadInfo.innerHTML = "Waiting for gamepad.";
-  
-    cancelRequestAnimationFrame(start);
-  });
-  
-  var interval;
-  
-  if (!('ongamepadconnected' in window)) {
-    // No gamepad events available, poll instead.
-    interval = setInterval(pollGamepads, 500);
-  }
-  
-  function pollGamepads() {
-    var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
-    for (var i = 0; i < gamepads.length; i++) {
-      var gp = gamepads[i];
-      if (gp) {
-        gamepadInfo.innerHTML = "Gamepad connected at index " + gp.index + ": " + gp.id +
-          ". It has " + gp.buttons.length + " buttons and " + gp.axes.length + " axes.";
-        gameLoop();
-        clearInterval(interval);
-      }
-    }
-  }
-  
-  function buttonPressed(b) {
-    if (typeof(b) == "object") {
-      return b.pressed;
-    }
-    //console.log('button b pressed')
-    return b == 1.0;
-  }
-  
-  function gameLoop() {
-    var gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads : []);
-    if (!gamepads) {
-      return;
-    }
-  
-    var gp = gamepads[0];
-    if (buttonPressed(gp.buttons[0])) {
-      console.log('button 0 pressed') // X
-    } else if (buttonPressed(gp.buttons[1])) {
-      console.log('button 1 pressed') // circle
-    } else if (buttonPressed(gp.buttons[2])) {
-      console.log('button 2 pressed') // square
-    } else if (buttonPressed(gp.buttons[3])) {
-      console.log('button 3 pressed') // triangle
-    } else if (buttonPressed(gp.buttons[4])) {
-      console.log('button 4 pressed') // L1 & left shoulder
-    } else if (buttonPressed(gp.buttons[5])) {
-      console.log('button 5 pressed') // R1 & right shoulder
-    } else if (buttonPressed(gp.buttons[6])) {
-      console.log('button 6 pressed') // L2 & left shoulder
-    } else if (buttonPressed(gp.buttons[7])) {
-      console.log('button 7 pressed') // R2 & right trigger
-    } else if (buttonPressed(gp.buttons[8])) {
-      console.log('button 8 pressed') // Share button aka select
-    } else if (buttonPressed(gp.buttons[9])) {
-      console.log('button 9 pressed') // Options button aka start
-    } else if (buttonPressed(gp.buttons[10])) {
-      console.log('button 10 pressed') // ??? Assume this is L3
-    } else if (buttonPressed(gp.buttons[11])) {
-      console.log('button 11 pressed') // ??? Assume this is R3
-    } else if (buttonPressed(gp.buttons[12])) {
-      console.log('button 12 pressed') // D-Pad UP
-    } else if (buttonPressed(gp.buttons[13])) {
-      console.log('button 13 pressed') // D-Pad DOWN
-    } else if (buttonPressed(gp.buttons[14])) {
-      console.log('button 14 pressed') // D-Pad LEFT
-    } else if (buttonPressed(gp.buttons[15])) {
-      console.log('button 15 pressed') // D-Pad RIGHT
-    } else if (buttonPressed(gp.buttons[16])) {
-      console.log('button 16 pressed')
-    } else if (buttonPressed(gp.buttons[17])) {
-      console.log('button 17 pressed')
-    } else {
-      console.log('waiting')
-    }
+	function reportOnGamepad() {
+		var gp = navigator.getGamepads()[0];
+		var html = "";
+			html += "id: "+gp.id+"<br/>";
+		
+		for(var i=0;i<gp.buttons.length;i++) {
+			html+= "Button "+(i+1)+": ";
+      if(gp.buttons[i].pressed) 
+      console.log('press')
+      html+= " pressed";
+			html+= "<br/>";
+		}
+		
+		for(var i=0;i<gp.axes.length; i+=2) {
+			html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
+		}
+		
+		$("#gamepadDisplay").html(html);
+	}
+		
+	$(document).ready(function() {
 
+		if(canGame()) {
 
-    ball.style.left = a * 2 + "px";
-    ball.style.top = b * 2 + "px";
-  
-    start = requestAnimationFrame(gameLoop);
-  }
+			var prompt = "To begin using your gamepad, connect it and press any button!";
+			$("#gamepadPrompt").text(prompt);
+			
+			$(window).on("gamepadconnected", function() {
+				hasGP = true;
+				$("#gamepadPrompt").html("Gamepad connected!");
+				console.log("connection event");
+				repGP = window.setInterval(reportOnGamepad,100);
+			});
 
+			$(window).on("gamepaddisconnected", function() {
+				console.log("disconnection event");
+				$("#gamepadPrompt").text(prompt);
+				window.clearInterval(repGP);
+			});
+
+			//setup an interval for Chrome
+			var checkGP = window.setInterval(function() {
+				console.log('checkGP');
+				if(navigator.getGamepads()[0]) {
+					if(!hasGP) $(window).trigger("gamepadconnected");
+					window.clearInterval(checkGP);
+				}
+			}, 500);
+		}
+		
+	});
 });
