@@ -23,7 +23,7 @@ p {
 .grid-container {
   display: inline-grid;
   justify-content: center;
-  grid-template-columns: 40px 40px 40px 40px 40px 40px 40px 40px 40px 40px;
+  grid-template-columns: repeat(10, 40px);
   grid-auto-columns: 40px;
   grid-gap: 2px;
   background-color: darkgrey;
