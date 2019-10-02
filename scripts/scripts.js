@@ -653,31 +653,13 @@ function Game(points,level) {
 
 $(document).keydown(function(e) { //UI logic and keytrapping
   switch(e.which) {
-    case 37:
-      // console.log("Left arrow");
-      game.moveLeft();
-    break;
-      case 38:
-      // console.log("up arrow");
-    break;
-    case 39:
-      // console.log("right arrow");
-      game.moveRight();
-    break;
-    case 40:
-      // console.log("down arrow");
-      game.moveDown();
-    break;
-    case 81:
-      // console.log("q key");
-      game.moveCW();
-    break;
-    case 87:
-      // console.log("w key");
-      game.moveCCW();
-    break;
-    case 32:  //Spacebar BEGINS game and END game logic located here
-      // console.log("spacebar");
+    case 37: game.moveLeft(); break; // console.log("Left arrow");
+    case 38: break; // console.log("up arrow");
+    case 39: game.moveRight(); break; // console.log("right arrow");
+    case 40: game.moveDown(); break; // console.log("down arrow");
+    case 81: game.moveCW(); break; // console.log("q key");
+    case 87: game.moveCCW(); break; // console.log("w key");
+    case 32:
       game.resetSystem();
       game.insertNewpiece(game.pickRandompiece());
       var timerInterval = 1000/(game.level+1);
@@ -691,8 +673,9 @@ $(document).keydown(function(e) { //UI logic and keytrapping
         },
       timerInterval);
     break;
-    default:
-    return; // exit this handler for other keys
+      //Spacebar BEGINS game and END game logic located here
+      // console.log("spacebar");
+    default: return; // exit this handler for other keys
   }
   game.updateGrid();  //redraw the grid after any keypress
   e.preventDefault(); // prevent the default action (scroll / move caret)
