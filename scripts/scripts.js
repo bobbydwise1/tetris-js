@@ -186,6 +186,7 @@ class Game {
        default:
          temp = this.zee;
      }
+     //Add random rotation to new piece
      let turns = Math.floor((Math.random()*3));
      for ( let i = 0; i < turns; i++ ) {
        temp = this.rotateCCW(temp)
