@@ -647,35 +647,46 @@ class Game {
         }
       }
     }
+
+  gameLoop() {
+    let timerInterval = 1000/(game.level+1);
+    let clock = setInterval(
+      function() {
+        game.moveDown();
+        game.updateGrid();
+        if (game.gameOver === true) {
+            clearInterval(clock);
+        }
+      },
+    timerInterval);
+  }
+
+  newGameStart() {
+    this.resetSystem();
+    this.insertNewpiece(this.pickRandompiece());
+    this.gameLoop()
+  }
 }
 
 let game = new Game(0,0)
 
 $(document).keydown(function(e) { //UI logic and keytrapping
-  switch(e.which) {
-    case 37: game.moveLeft(); break; // console.log("Left arrow");
-    case 38: break; // console.log("up arrow");
-    case 39: game.moveRight(); break; // console.log("right arrow");
-    case 40: game.moveDown(); break; // console.log("down arrow");
-    case 81: game.moveCW(); break; // console.log("q key");
-    case 87: game.moveCCW(); break; // console.log("w key");
-    case 32:
-      game.resetSystem();
-      game.insertNewpiece(game.pickRandompiece());
-      let timerInterval = 1000/(game.level+1);
-      let clock = setInterval(
-        function() {
-          game.moveDown();
-          game.updateGrid();
-          if (game.gameOver === true) {
-              clearInterval(clock);
-          }
-        },
-      timerInterval);
-    break;
-      //Spacebar BEGINS game and END game logic located here
-      // console.log("spacebar");
-    default: return; // exit this handler for other keys
+  if (!game.gameOver) {
+    switch(e.which) {
+      case 37: game.moveLeft(); break; // console.log("Left arrow");
+      case 38: break; // console.log("up arrow");
+      case 39: game.moveRight(); break; // console.log("right arrow");
+      case 40: game.moveDown(); break; // console.log("down arrow");
+      case 81: game.moveCW(); break; // console.log("q key");
+      case 87: game.moveCCW(); break; // console.log("w key");
+      case 32: game.newGameStart(); break; // console.log("spacebar");
+      default: return; // exit this handler for other keys
+      }
+    } else {
+        switch(e.which) {
+          case 32: game.newGameStart(); break; // console.log("spacebar");
+          default: return; // exit this handler for other keys
+      }
   }
   game.updateGrid();  //redraw the grid after any keypress
   e.preventDefault(); // prevent the default action (scroll / move caret)
