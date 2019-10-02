@@ -494,42 +494,42 @@ class Game {
     return this.alivePos;
   }
 
-  rotateCW() {  //This is the internal CW checking
-    if (this.alive[0].length === 4) {
+  rotateCW(somePiece) {  //This is the internal CW checking
+    if (somePiece[0].length === 4) {
       var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
-      //tempArray[0][0] = this.alive[3][0];  //always zero
-      tempArray[0][1] = this.alive[2][0];
-      tempArray[0][2] = this.alive[1][0];
-      //tempArray[0][3] = this.alive[0][0];  //always zero
-      tempArray[1][0] = this.alive[3][1];
-      tempArray[1][1] = this.alive[2][1];
-      tempArray[1][2] = this.alive[1][1];
-      tempArray[1][3] = this.alive[0][1];
-      tempArray[2][0] = this.alive[3][2];
-      tempArray[2][1] = this.alive[2][2];
-      tempArray[2][2] = this.alive[1][2];
-      tempArray[2][3] = this.alive[0][2];
-      //tempArray[3][0] = this.alive[3][3];  //always zero
-      tempArray[3][1] = this.alive[2][3];
-      tempArray[3][2] = this.alive[1][3];
-      //tempArray[3][3] = this.alive[0][3];  //always zero
+      //tempArray[0][0] = somePiece[3][0];  //always zero
+      tempArray[0][1] = somePiece[2][0];
+      tempArray[0][2] = somePiece[1][0];
+      //tempArray[0][3] = somePiece[0][0];  //always zero
+      tempArray[1][0] = somePiece[3][1];
+      tempArray[1][1] = somePiece[2][1];
+      tempArray[1][2] = somePiece[1][1];
+      tempArray[1][3] = somePiece[0][1];
+      tempArray[2][0] = somePiece[3][2];
+      tempArray[2][1] = somePiece[2][2];
+      tempArray[2][2] = somePiece[1][2];
+      tempArray[2][3] = somePiece[0][2];
+      //tempArray[3][0] = somePiece[3][3];  //always zero
+      tempArray[3][1] = somePiece[2][3];
+      tempArray[3][2] = somePiece[1][3];
+      //tempArray[3][3] = somePiece[0][3];  //always zero
     } else {
       var tempArray = [[0,0,0],[0,0,0],[0,0,0]];
-      tempArray[0][0] = this.alive[2][0];
-      tempArray[0][1] = this.alive[1][0];
-      tempArray[0][2] = this.alive[0][0];
-      tempArray[1][0] = this.alive[2][1];
-      tempArray[1][1] = this.alive[1][1];
-      tempArray[1][2] = this.alive[0][1];
-      tempArray[2][0] = this.alive[2][2];
-      tempArray[2][1] = this.alive[1][2];
-      tempArray[2][2] = this.alive[0][2];
+      tempArray[0][0] = somePiece[2][0];
+      tempArray[0][1] = somePiece[1][0];
+      tempArray[0][2] = somePiece[0][0];
+      tempArray[1][0] = somePiece[2][1];
+      tempArray[1][1] = somePiece[1][1];
+      tempArray[1][2] = somePiece[0][1];
+      tempArray[2][0] = somePiece[2][2];
+      tempArray[2][1] = somePiece[1][2];
+      tempArray[2][2] = somePiece[0][2];
     }
     return tempArray;
     //RotateCW could probably be done with a fancy non-standard nested loops.
-    //for (y=0; y<this.alive.length; y++) {
-    //for (x=0; x<this.alive.length; x++) {
-    //tempArray[y][x] = this.alive[this.alive[0].length-1-x][y];}}
+    //for (y=0; y<somePiece.length; y++) {
+    //for (x=0; x<somePiece.length; x++) {
+    //tempArray[y][x] = somePiece[somePiece[0].length-1-x][y];}}
     }
 
   moveCW() {  //This is the actual CW function
@@ -557,42 +557,42 @@ class Game {
     return this.alive;
   }
 
-  rotateCCW() { //This is the internal CCW checking
-    if (this.alive[0].length === 4) {
+  rotateCCW(somePiece) { //This is the internal CCW checking
+    if (somePiece[0].length === 4) {
       var tempArray = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
-      //tempArray[0][0] = this.alive[0][3];  //always zero
-      tempArray[0][1] = this.alive[1][3];
-      tempArray[0][2] = this.alive[2][3];
-      //tempArray[0][3] = this.alive[3][3];  //always zero
-      tempArray[1][0] = this.alive[0][2];
-      tempArray[1][1] = this.alive[1][2];
-      tempArray[1][2] = this.alive[2][2];
-      tempArray[1][3] = this.alive[3][2];
-      tempArray[2][0] = this.alive[0][1];
-      tempArray[2][1] = this.alive[1][1];
-      tempArray[2][2] = this.alive[2][1];
-      tempArray[2][3] = this.alive[3][1];
-      //tempArray[3][0] = this.alive[0][0];  //always zero
-      tempArray[3][1] = this.alive[1][0];
-      tempArray[3][2] = this.alive[2][0];
-      //tempArray[3][3] = this.alive[3][0];  //always zero
+      //tempArray[0][0] = somePiece[0][3];  //always zero
+      tempArray[0][1] = somePiece[1][3];
+      tempArray[0][2] = somePiece[2][3];
+      //tempArray[0][3] = somePiece[3][3];  //always zero
+      tempArray[1][0] = somePiece[0][2];
+      tempArray[1][1] = somePiece[1][2];
+      tempArray[1][2] = somePiece[2][2];
+      tempArray[1][3] = somePiece[3][2];
+      tempArray[2][0] = somePiece[0][1];
+      tempArray[2][1] = somePiece[1][1];
+      tempArray[2][2] = somePiece[2][1];
+      tempArray[2][3] = somePiece[3][1];
+      //tempArray[3][0] = somePiece[0][0];  //always zero
+      tempArray[3][1] = somePiece[1][0];
+      tempArray[3][2] = somePiece[2][0];
+      //tempArray[3][3] = somePiece[3][0];  //always zero
     } else {
       var tempArray = [[0,0,0],[0,0,0],[0,0,0]];
-      tempArray[0][0] = this.alive[0][2];
-      tempArray[0][1] = this.alive[1][2];
-      tempArray[0][2] = this.alive[2][2];
-      tempArray[1][0] = this.alive[0][1];
-      tempArray[1][1] = this.alive[1][1];
-      tempArray[1][2] = this.alive[2][1];
-      tempArray[2][0] = this.alive[0][0];
-      tempArray[2][1] = this.alive[1][0];
-      tempArray[2][2] = this.alive[2][0];
+      tempArray[0][0] = somePiece[0][2];
+      tempArray[0][1] = somePiece[1][2];
+      tempArray[0][2] = somePiece[2][2];
+      tempArray[1][0] = somePiece[0][1];
+      tempArray[1][1] = somePiece[1][1];
+      tempArray[1][2] = somePiece[2][1];
+      tempArray[2][0] = somePiece[0][0];
+      tempArray[2][1] = somePiece[1][0];
+      tempArray[2][2] = somePiece[2][0];
     }
     return tempArray;
     //RotateCCW could probably be done with a fancy non-standard nested loops.
-    //for (y=0; y<this.alive.length; y++) {
-    //for (x=0; x<this.alive.length; x++) {
-    //tempArray[y][x] = this.alive[x][this.alive[0].length-1-y];}}
+    //for (y=0; y<somePiece.length; y++) {
+    //for (x=0; x<somePiece.length; x++) {
+    //tempArray[y][x] = somePiece[x][somePiece[0].length-1-y];}}
   }
 
   moveCCW() { //This is actual CCW fuction
