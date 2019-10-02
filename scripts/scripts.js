@@ -189,7 +189,17 @@ class Game {
      return temp;
   }
 
+  doNotPickSamePieceTwice(yourCurrentPiece) {
+    let temp = this.pickRandompiece()
+    while (temp == yourCurrentPiece) {
+      temp = this.pickRandompiece()
+    }
+    return temp
+  }
+
   insertNewpiece(piece_matrix) { //insert new piece and game over detect
+    this.next = this.doNotPickSamePieceTwice(piece_matrix)
+    console.table(this.next)
     this.alivePos = [1,5];
     this.alive = piece_matrix;
     for (let y = 1; y < piece_matrix[0].length; y++) {
@@ -466,7 +476,7 @@ class Game {
     if (this.lookAheadScanDown() === true) {
       this.makePieceDead();
       this.clearLines();
-      this.insertNewpiece(this.pickRandompiece());
+      this.insertNewpiece(this.next);
     } else {
       for (let y = this.alive[0].length-1; y >= 0; y--) {
         for (let x = 0; x < this.alive[0].length; x++) {
@@ -666,6 +676,7 @@ class Game {
     this.insertNewpiece(this.pickRandompiece());
     this.gameLoop()
   }
+
 }
 
 let game = new Game(0,0)
