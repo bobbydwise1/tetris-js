@@ -730,6 +730,7 @@ class Game {
 let game = new Game(0,0)
 
 $(document).keydown(function(e) { //UI logic and keytrapping
+  e.preventDefault(); // prevent the default action (scroll / move caret)
   if (!game.gameOver) {
     switch(e.which) {
       case 37: game.moveLeft(); break; // console.log("Left arrow");
@@ -748,9 +749,6 @@ $(document).keydown(function(e) { //UI logic and keytrapping
       }
   }
   game.updateGrid();  //redraw the grid after any keypress
-  e.preventDefault(); // prevent the default action (scroll / move caret)
-
-  
 });
 
 //https://gamedevelopment.tutsplus.com/tutorials/using-the-html5-gamepad-api-to-add-controller-support-to-browser-games--cms-21345
@@ -780,63 +778,63 @@ function reportOnGamepad() {
     $("#gamepadDisplay").html(html);
 }
 
-// $(document).ready(function() {
-//   let hasGP = false;
-// 	let repGP;
+$(document).ready(function() {
+  let hasGP = false;
+	let repGP;
 	
-// 	function canGame() {
-// 		return "getGamepads" in navigator;
-// 	}
+	function canGame() {
+		return "getGamepads" in navigator;
+	}
 
-// 	function reportOnGamepad() {
-// 		let gp = navigator.getGamepads()[0];
-// 		let html = "";
-// 			html += "id: "+gp.id+"<br/>";
+	function reportOnGamepad() {
+		let gp = navigator.getGamepads()[0];
+		let html = "";
+			html += "id: "+gp.id+"<br/>";
 		
-// 		for(let i=0;i<gp.buttons.length;i++) {
-// 			html+= "Button "+(i+1)+": ";
-//       if(gp.buttons[i].pressed) 
-//       console.log('press')
-//       html+= " pressed";
-// 			html+= "<br/>";
-// 		}
+		for(let i=0;i<gp.buttons.length;i++) {
+			html+= "Button "+(i+1)+": ";
+      if(gp.buttons[i].pressed) 
+      console.log('press')
+      html+= " pressed";
+			html+= "<br/>";
+		}
 		
-// 		for(let i=0;i<gp.axes.length; i+=2) {
-// 			html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
-// 		}
+		for(let i=0;i<gp.axes.length; i+=2) {
+			html+= "Stick "+(Math.ceil(i/2)+1)+": "+gp.axes[i]+","+gp.axes[i+1]+"<br/>";
+		}
 		
-// 		$("#gamepadDisplay").html(html);
-// 	}
+		$("#gamepadDisplay").html(html);
+	}
 		
-// 	$(document).ready(function() {
+	$(document).ready(function() {
 
-// 		if(canGame()) {
+		if(canGame()) {
 
-// 			let prompt = "To begin using your gamepad, connect it and press any button!";
-// 			$("#gamepadPrompt").text(prompt);
+			let prompt = "To begin using your gamepad, connect it and press any button!";
+			$("#gamepadPrompt").text(prompt);
 			
-// 			$(window).on("gamepadconnected", function() {
-// 				hasGP = true;
-// 				$("#gamepadPrompt").html("Gamepad connected!");
-// 				console.log("connection event");
-// 				repGP = window.setInterval(reportOnGamepad,100);
-// 			});
+			$(window).on("gamepadconnected", function() {
+				hasGP = true;
+				$("#gamepadPrompt").html("Gamepad connected!");
+				console.log("connection event");
+				repGP = window.setInterval(reportOnGamepad,100);
+			});
 
-// 			$(window).on("gamepaddisconnected", function() {
-// 				console.log("disconnection event");
-// 				$("#gamepadPrompt").text(prompt);
-// 				window.clearInterval(repGP);
-// 			});
+			$(window).on("gamepaddisconnected", function() {
+				console.log("disconnection event");
+				$("#gamepadPrompt").text(prompt);
+				window.clearInterval(repGP);
+			});
 
-// 			//setup an interval for Chrome
-// 			let checkGP = window.setInterval(function() {
-// 				console.log('checkGP');
-// 				if(navigator.getGamepads()[0]) {
-// 					if(!hasGP) $(window).trigger("gamepadconnected");
-// 					window.clearInterval(checkGP);
-// 				}
-// 			}, 500);
-// 		}
+			//setup an interval for Chrome
+			let checkGP = window.setInterval(function() {
+				console.log('checkGP');
+				if(navigator.getGamepads()[0]) {
+					if(!hasGP) $(window).trigger("gamepadconnected");
+					window.clearInterval(checkGP);
+				}
+			}, 500);
+		}
 		
-// 	});
-// });
+	});
+});
