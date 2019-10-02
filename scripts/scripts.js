@@ -186,10 +186,10 @@ class Game {
        default:
          temp = this.zee;
      }
-    //  let turns = Math.floor((Math.random()*3));
-    //  for ( let i = 0; i < turns; i++ ) {
-    //    temp = 
-    //  }
+     let turns = Math.floor((Math.random()*3));
+     for ( let i = 0; i < turns; i++ ) {
+       temp = this.rotateCCW(temp)
+     }
      return temp;
   }
 
@@ -205,7 +205,8 @@ class Game {
     this.next = this.doNotPickSamePieceTwice(piece_matrix)
     this.alivePos = [1,5];
     this.alive = piece_matrix;
-    for (let y = 1; y < piece_matrix[0].length; y++) {
+    console.table(this.alive)
+    for (let y = 0; y < piece_matrix[0].length; y++) {
       for (let x = 0; x < piece_matrix[0].length; x++) {
         if (piece_matrix[y][x] != 0) {
           this.system[y][this.alivePos[1]+x-1] = piece_matrix[y][x];
@@ -660,23 +661,13 @@ class Game {
           }
         }
       }
+      //clear next box
+      for (let y = 0; y < 4; y++) {
+        for (let x = 0; x < 4; x++) {
+          $('#next'+ y + "-" + x).removeClass().addClass("grid-color-dark");
+        }
+      }
       //redraw next box
-      $('#next0-0').removeClass().addClass("grid-color-dark");
-      $('#next0-1').removeClass().addClass("grid-color-dark");
-      $('#next0-2').removeClass().addClass("grid-color-dark");
-      $('#next0-3').removeClass().addClass("grid-color-dark");
-      $('#next1-0').removeClass().addClass("grid-color-dark");
-      $('#next1-1').removeClass().addClass("grid-color-dark");
-      $('#next1-2').removeClass().addClass("grid-color-dark");
-      $('#next1-3').removeClass().addClass("grid-color-dark");
-      $('#next2-0').removeClass().addClass("grid-color-dark");
-      $('#next2-1').removeClass().addClass("grid-color-dark");
-      $('#next2-2').removeClass().addClass("grid-color-dark");
-      $('#next2-3').removeClass().addClass("grid-color-dark");
-      $('#next3-0').removeClass().addClass("grid-color-dark");
-      $('#next3-1').removeClass().addClass("grid-color-dark");
-      $('#next3-2').removeClass().addClass("grid-color-dark");
-      $('#next3-3').removeClass().addClass("grid-color-dark");
       for (let y = 0; y < this.next.length; y++) {
         for (let x = 0; x < this.next[0].length; x++) {
           switch (Math.abs(this.next[y][x])) {
