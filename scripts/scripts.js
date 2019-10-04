@@ -15,6 +15,7 @@ class Game {
   let blankRow = [-1,0,0,0,0,0,0,0,0,0,0,-1];
   this.hitDetectLookAhead3 = 0;
   this.hitDetectLookAhead4 = 0;
+  this.timerInterval = 1000;
   this.system = [
 [-1,0,0,0,0,0,0,0,0,0,0,-1], //y = 0
 [-1,0,0,0,0,0,0,0,0,0,0,-1],
@@ -206,7 +207,6 @@ class Game {
     this.next = this.doNotPickSamePieceTwice(piece_matrix)
     this.alivePos = [1,5];
     this.alive = piece_matrix;
-    console.table(this.alive)
     for (let y = 0; y < piece_matrix[0].length; y++) {
       for (let x = 0; x < piece_matrix[0].length; x++) {
         if (piece_matrix[y][x] != 0) {
@@ -706,17 +706,28 @@ class Game {
         }
     }
 
+    // gameLoop() {
+    //   let timerInterval = 1000/(game.level+1);
+    //   let clock = setInterval(
+    //     function() {
+    //       game.moveDown();
+    //       game.updateGrid();
+    //       if (game.gameOver === true) {
+    //           clearInterval(clock);
+    //       }
+    //     },
+    //   timerInterval);
+    // }
+
   gameLoop() {
-    let timerInterval = 1000/(game.level+1);
-    let clock = setInterval(
-      function() {
+    this.timerInterval = 1000/(1+Math.floor(this.lines/10))
+      let clock = setInterval(function() {
         game.moveDown();
         game.updateGrid();
         if (game.gameOver === true) {
-            clearInterval(clock);
+          clearInterval(clock);
         }
-      },
-    timerInterval);
+      }, this.timerInterval);
   }
 
   newGameStart() {
