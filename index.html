@@ -13,13 +13,14 @@
 </head>
 <body>
   <div class="container">
+    <div class='grid-outer-container'>
     <div class="title">
       <p>Points: <a id="pointsDisp"></a>| Level: <a id="levelDisp"></a> | Lines: <a id="linesDisp"></a></p>
       <p>keys: SPACE = reset/begin, Q/W = rotateCW/CCW, arrows = move</p>
       <p><span id='gamepadPrompt'>Waiting for Gamepad.</span></p>
       <div id="ball"></div>
     </div>
-    <div class="box">
+    <div class="box grid-left">
       <div class="grid-container">
         <div id="gee0-1" class="grid-item"></div>
         <div id="gee0-2" class="grid-item"></div>
@@ -254,7 +255,7 @@
 
       </div>
     </div>
-    <div class='box'>
+    <div class='box grid-right'>
       <div class="grid-next">
         <div id="next0-0" class="grid-item"></div>
         <div id="next0-1" class="grid-item"></div>
@@ -276,6 +277,7 @@
         <div id="next3-2" class="grid-item"></div>
         <div id="next3-3" class="grid-item"></div>
     </div>
+  </div>
   </div>
 </body>
 </html>

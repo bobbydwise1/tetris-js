@@ -94,6 +94,7 @@ class Game {
 
   }
   resetSystem() {
+    this.timerInterval = 1000;
     this.system = [
       [-1,0,0,0,0,0,0,0,0,0,0,-1],  //y = 0
       [-1,0,0,0,0,0,0,0,0,0,0,-1],
@@ -159,6 +160,7 @@ class Game {
       ;
     }
     this.level = Math.floor(this.lines/10);
+    this.timerInterval = 1000/(1+Math.floor(this.lines/10))
     this.updateGrid();
   }
 
@@ -720,7 +722,6 @@ class Game {
     // }
 
   gameLoop() {
-    this.timerInterval = 1000/(1+Math.floor(this.lines/10))
       let clock = setInterval(function() {
         game.moveDown();
         game.updateGrid();
