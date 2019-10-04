@@ -1,9 +1,14 @@
-body {background-color: MidnightBlue;}
-.item1 { grid-area: header; }
-.item2 { grid-area: menu; }
-.item3 { grid-area: main; }
-.item4 { grid-area: right; }
-.item5 { grid-area: footer; }
+body {
+  background-color: MidnightBlue;
+}
+
+h1 {
+  color: white
+}
+
+h2 {
+  color: white
+}
 
 p {
   color: white
@@ -12,10 +17,11 @@ p {
 .grid-outer-container {
   display: grid;
   grid-template-areas: 'header header'
-  'left right'
-  'left right'
-  'left right'
-  'left right'
+  'left next'
+  'left score'
+  'left score'
+  'left score'
+  'footer footer'
 }
 
 .title {
@@ -34,8 +40,19 @@ p {
   grid-area: left;
 }
 
-.grid-right {
-  grid-area: right;
+.grid-next {
+  grid-area: next;
+}
+
+.grid-score {
+  grid-area: score;
+  display: grid;
+}
+
+.grid-footer {
+  grid-area: footer;
+  display: grid;
+  text-align: center;
 }
 
 .grid-container {

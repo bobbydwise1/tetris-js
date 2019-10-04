@@ -807,7 +807,7 @@ $(document).ready(function() {
 		for(let i=0;i<gp.buttons.length;i++) {
 			html+= "Button "+(i+1)+": ";
       if(gp.buttons[i].pressed) 
-      console.log('press')
+      console.log('pressed button',gp.buttons[i])
       html+= " pressed";
 			html+= "<br/>";
 		}

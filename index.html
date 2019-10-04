@@ -15,8 +15,6 @@
   <div class="container">
     <div class='grid-outer-container'>
     <div class="title">
-      <p>Points: <a id="pointsDisp"></a>| Level: <a id="levelDisp"></a> | Lines: <a id="linesDisp"></a></p>
-      <p>keys: SPACE = reset/begin, Q/W = rotateCW/CCW, arrows = move</p>
       <p><span id='gamepadPrompt'>Waiting for Gamepad.</span></p>
       <div id="ball"></div>
     </div>
@@ -256,6 +254,7 @@
       </div>
     </div>
     <div class='box grid-right'>
+      <h2>NEXT</h2>
       <div class="grid-next">
         <div id="next0-0" class="grid-item"></div>
         <div id="next0-1" class="grid-item"></div>
@@ -266,18 +265,34 @@
         <div id="next1-1" class="grid-item"></div>
         <div id="next1-2" class="grid-item"></div>
         <div id="next1-3" class="grid-item"></div>
-        
+
         <div id="next2-0" class="grid-item"></div>
         <div id="next2-1" class="grid-item"></div>
         <div id="next2-2" class="grid-item"></div>
         <div id="next2-3" class="grid-item"></div>
-        
+
         <div id="next3-0" class="grid-item"></div>
         <div id="next3-1" class="grid-item"></div>
         <div id="next3-2" class="grid-item"></div>
         <div id="next3-3" class="grid-item"></div>
     </div>
+    </div>
+    <div class='box grid-score'>
+    <h2>POINTS:</h2>
+    <h1><a id="pointsDisp">0</a></h1>
+    <h2>LEVEL:</h2>
+    <h1><a id="levelDisp">0</a></h1>
+    <h2>LINES:</h2>
+    <h1><a id="linesDisp">0</a></h1>
+    <p>keyboard controls:</p>
+    <p>SPACE = new game</p>
+    <p>Q = rotate CW</p>
+    <p>W = rotate CCW</p>
+    <p>arrow keys = move</p>
+    </div>
   </div>
+  <div class='grid-footer'>
+  <p>Created by Robert Lee, 2019.  For fair use and educational purposes only.</p>
   </div>
 </body>
 </html>
