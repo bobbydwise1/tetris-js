@@ -38,21 +38,14 @@ _Classic Tetris, done in JavaScript._
 
 ## Future Wishlist Features
 
-* _Create a "Show next block"._
 * _High Score screen._
 * _Change the RNG rules such that blocks are not repeats._
 * _Music and sound effects._
 * _Handheld controller support._
 * _User Interface friendly skins._
-* _Create a Modern Tetris variant:_
-  * _Wall kicks and floor kicks._
-  * _Random order of all 7 pieces serially._
-  * _Hold a piece feature._
-* _Refactor code to not use nested arrays._
 
 ## Known Bugs
 
-* _Pressing down after game over creates more dead blocks._
 * _Gravity timer does not appear to speed up with each level._
 
 ## Support and contact details
@@ -61,10 +54,10 @@ _Classic Tetris, done in JavaScript._
 
 ## Technologies Used
 
-* _JavaScript, jQuery, HTML, CSS, Bootstrap, Atom._
+* _JavaScript, jQuery, HTML, CSS, Bootstrap, Atom, VSCode._
 
 ### License
 
 *This application is Licensed under the MIT software License agreement. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*
 
-Copyright (c) 2019 **_Robert Lee_**
+Copyright (c) 2019 **_Robert Lee_**.  This software is for educational purposes only, and constitutes fair use.
