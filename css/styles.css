@@ -45,7 +45,7 @@ p {
   grid-area: left;
 }
 
-.grid-container {
+.grid-game-container {
   display: inline-grid;
   justify-content: center;
   grid-template-columns: repeat(10, 40px);
