@@ -11,7 +11,7 @@ class Game {
   this.next1 = 0;
   this.next = 0;
   this.lines = 0;
-  this.gameOver = 0;
+  this.gameOver = 1;
   let blankRow = [-1,0,0,0,0,0,0,0,0,0,0,-1];
   this.hitDetectLookAhead3 = 0;
   this.hitDetectLookAhead4 = 0;
@@ -751,7 +751,13 @@ $(document).keydown(function(e) { //UI logic and keytrapping
       case 40: game.moveDown(); break; // console.log("down arrow");
       case 81: game.moveCW(); break; // console.log("q key");
       case 87: game.moveCCW(); break; // console.log("w key");
-      case 32: game.newGameStart(); break; // console.log("spacebar");
+      case 32: 
+        if (game.gameOver == true) {
+          game.newGameStart();
+          break;
+        } else {
+          break;
+        } // console.log("spacebar");
       default: return; // exit this handler for other keys
       }
     } else {
