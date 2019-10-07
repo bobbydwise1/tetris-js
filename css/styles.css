@@ -19,7 +19,7 @@ p {
   display: grid;
   grid-template-areas: 'header header'
   'left next'
-  'left score'
+  'left next'
   'left score'
   'left score'
   'footer footer'
@@ -28,6 +28,11 @@ p {
 .title {
   grid-area: header;
   text-align: center;
+  display: grid;
+  justify-content: center;
+  background-color: midnightblue;
+  padding: 10px;
+  margin: 10px;
 }
 
 .box {
@@ -41,21 +46,6 @@ p {
   grid-area: left;
 }
 
-.grid-next {
-  grid-area: next;
-}
-
-.grid-score {
-  grid-area: score;
-  display: grid;
-}
-
-.grid-footer {
-  grid-area: footer;
-  display: grid;
-  text-align: center;
-}
-
 .grid-container {
   display: inline-grid;
   justify-content: center;
@@ -66,6 +56,15 @@ p {
   padding: 4px;
 }
 
+.grid-right {
+  grid-area: next;
+  display: grid;
+  justify-content: center;
+  background-color: midnightblue;
+  padding: 10px;
+  margin: 10px;
+}
+
 .grid-next {
   display: inline-grid;
   justify-content: center;
@@ -74,6 +73,24 @@ p {
   grid-gap: 2px;
   background-color: darkgrey;
   padding: 4px;
+}
+
+.grid-score {
+  grid-area: score;
+  display: grid;
+  justify-content: center;
+  background-color: midnightblue;
+  padding: 10px;
+  margin: 10px;
+}
+
+.grid-footer {
+  grid-area: footer;
+  display: grid;
+  text-align: center;
+  background-color: midnightblue;
+  padding: 10px;
+  margin: 10px;
 }
 
 div.grid-item {background-color: black; min-width: 35px;  min-height: 35px;}
