@@ -708,24 +708,12 @@ class Game {
         }
     }
 
-    // gameLoop() {
-    //   let timerInterval = 1000/(game.level+1);
-    //   let clock = setInterval(
-    //     function() {
-    //       game.moveDown();
-    //       game.updateGrid();
-    //       if (game.gameOver === true) {
-    //           clearInterval(clock);
-    //       }
-    //     },
-    //   timerInterval);
-    // }
-
   gameLoop() {
       let clock = setInterval(function() {
         game.moveDown();
         game.updateGrid();
-        if (game.gameOver === true) {
+        if (game.gameOver == true) {
+          $("#title-line").text('GAME OVER!')
           clearInterval(clock);
         }
       }, this.timerInterval);
@@ -733,10 +721,10 @@ class Game {
 
   newGameStart() {
     this.resetSystem();
+    $("#title-line").text('TETRIS')
     this.insertNewpiece(this.pickRandompiece());
     this.gameLoop()
   }
-
 }
 
 let game = new Game(0,0)
@@ -751,13 +739,7 @@ $(document).keydown(function(e) { //UI logic and keytrapping
       case 40: game.moveDown(); break; // console.log("down arrow");
       case 81: game.moveCW(); break; // console.log("q key");
       case 87: game.moveCCW(); break; // console.log("w key");
-      case 32: 
-        if (game.gameOver == true) {
-          game.newGameStart();
-          break;
-        } else {
-          break;
-        } // console.log("spacebar");
+      case 32: break; // console.log("spacebar");
       default: return; // exit this handler for other keys
       }
     } else {
