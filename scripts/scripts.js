@@ -1,6 +1,6 @@
 // Tetris Clone
 // Classic Tetris created in JavaScript and jQuery, for educational purposes.
-// By Robert Lee 08-MAR-2019
+// By Robert Lee 2019
 
 class Game {
   constructor(points,level) {
@@ -235,7 +235,7 @@ class Game {
         }
       }
       return this.alivePos;
-    }
+  }
 
   lookAheadScanLeft() { //hit detect left
     let temp = [];
@@ -460,7 +460,7 @@ class Game {
       this.alivePos[1]--;
     }
       return this.alivePos;
-    }
+  }
 
   moveRight() {
     let yoffset = -1;
@@ -534,7 +534,7 @@ class Game {
     //for (y=0; y<somePiece.length; y++) {
     //for (x=0; x<somePiece.length; x++) {
     //tempArray[y][x] = somePiece[somePiece[0].length-1-x][y];}}
-    }
+  }
 
   moveCW() {  //This is the actual CW function
     //A "bounce" rotate hit detect must be added
@@ -706,17 +706,17 @@ class Game {
             }
           }
         }
-    }
+  }
 
   gameLoop() {
-      let clock = setInterval(function() {
-        game.moveDown();
-        game.updateGrid();
-        if (game.gameOver == true) {
-          $("#title-line").text('GAME OVER!')
-          clearInterval(clock);
-        }
-      }, this.timerInterval);
+    let clock = setInterval(function() {
+      game.moveDown();
+      game.updateGrid();
+      if (game.gameOver == true) {
+        $("#title-line").text('GAME OVER!')
+        clearInterval(clock);
+      }
+    }, this.timerInterval);
   }
 
   newGameStart() {
