@@ -1,13 +1,14 @@
 body {
   background: url(../images/pattern.png);
   background-color: MidnightBlue;
+  font-family: 'Press Start 2P', regular;
 }
 
 h1 {
   color: white
 }
 
-h2 {
+h3 {
   color: white
 }
 
