@@ -2,7 +2,7 @@
 
 #### _Classic Tetris created in JavaScript and jQuery, for educational purposes._
 
-#### By _**Robert Lee**_, 08-MAR-2019
+#### By _**Robert Lee**_, 2019
 
 ## Description
 
@@ -39,14 +39,13 @@ _Classic Tetris, done in JavaScript._
 ## Future Wishlist Features
 
 * _High Score screen._
-* _Change the RNG rules such that blocks are not repeats._
+* _Option to change RNG for blocks between seeded, non-repeat, and random._
 * _Music and sound effects._
 * _Handheld controller support._
-* _User Interface friendly skins._
 
 ## Known Bugs
 
-* _Gravity timer does not appear to speed up with each level._
+* _Gravity timer doesn't speed up with each level._
 
 ## Support and contact details
 
@@ -54,10 +53,23 @@ _Classic Tetris, done in JavaScript._
 
 ## Technologies Used
 
-* _JavaScript, jQuery, HTML, CSS, Bootstrap, Atom, VSCode._
+* _JavaScript, jQuery, HTML, CSS, Bootstrap, Atom, VSCode, Google Fonts._
 
 ### License
 
 *This application is Licensed under the MIT software License agreement. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.*
+
+*The font "Press Start 2P" is from Google Fonts and is covered under SIL Open Font License (OFL).  The DISCLAIMER for the SIL License reads in part:
+
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+*
 
 Copyright (c) 2019 **_Robert Lee_**.  This software is for educational purposes only, and constitutes fair use.
