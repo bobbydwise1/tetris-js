@@ -8,7 +8,13 @@
 
 _Classic Tetris, done in JavaScript._
 
-## Setup/Installation Requirements
+## Access App Directly on Github Pages
+
+_Click on the following link to access the app in your web browser directly:_
+
+https://bobbydwise1.github.io/tetris-js
+
+## Local Setup/Installation Requirements
 
 * _Clone the application from Github.com by going to the terminal window command line and typing:_
 
